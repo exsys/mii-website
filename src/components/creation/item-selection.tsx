@@ -1,25 +1,26 @@
 "use client";
 import { ITEMS_MALE, ITEMS_FEMALE } from "@/assets/items"
+import { MiiCharacterContext } from "@/providers/character-provider";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 type Props = {
     itemType: string;
-    gender: string;
 }
 
-export default function ItemSelection({ itemType, gender }: Props) {
+export default function ItemSelection({ itemType }: Props) {
+    const [character, setCharacter] = useContext(MiiCharacterContext);
     const [currentItems, setCurrentItems] = useState<any[]>([]);
 
     useEffect(() => {
-        if (gender === "male") {
+        if (character.gender === "male") {
 
         }
 
-        if (gender === "female") {
+        if (character.gender === "female") {
             
         }
-    }, [gender, itemType]);
+    }, [character, itemType]);
 
     return (
         <div>

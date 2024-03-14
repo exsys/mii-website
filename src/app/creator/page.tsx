@@ -1,15 +1,18 @@
 "use client";
 import CharacterCreation from "@/components/creation/character-creation";
 import Selection from "@/components/home/selection";
-import { useState } from "react";
+import { MiiCharacterContext } from "@/providers/character-provider";
+import { useContext, useState } from "react";
 
 export default function MiiCreator() {
+    const [character, setCharacter] = useContext(MiiCharacterContext);
     const [currentView, setCurrentView] = useState<string>("selection");
-    const [selectedGender, setSelectedGender] = useState<string>("");
 
     const selectGender = (gender: string) => {
-        setSelectedGender(gender);
+        const char = {...character};
+        char.gender = gender;
         setCurrentView("creation");
+        setCharacter(char);
     }
 
     return (
@@ -20,7 +23,7 @@ export default function MiiCreator() {
                 )}
 
                 {currentView === "creation" && (
-                    <CharacterCreation gender={selectedGender} />
+                    <CharacterCreation />
                 )}
             </div>
         </div>

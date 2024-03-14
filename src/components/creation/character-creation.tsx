@@ -1,26 +1,24 @@
 "use client";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Character from "./character";
 import ItemSelection from "./item-selection";
-import ItemType from "./item-type";
+import ItemTypeSelection from "./item-type-selection";
+import { MiiCharacterContext } from "@/providers/character-provider";
 
-type Props = {
-    gender: string;
-}
-
-export default function CharacterCreation({ gender }: Props) {
+export default function CharacterCreation() {
+    const [character, setCharacter] = useContext(MiiCharacterContext);
     const [selectedItemType, setSelectedItemType] = useState<string>("head");
 
     return (
         <div className="h-full">
             <div className="h-full flex justify-center items-center flex-col gap-10">
                 <div>
-                    <ItemType selectedItemType={selectedItemType} setSelectedItemType={setSelectedItemType} />
+                    <ItemTypeSelection selectedItemType={selectedItemType} setSelectedItemType={setSelectedItemType} />
                 </div>
 
                 <div className="flex gap-5 justify-between w-full">
-                    <Character gender={gender} />
-                    <ItemSelection itemType={selectedItemType} gender={gender} />
+                    <Character />
+                    <ItemSelection itemType={selectedItemType} />
                 </div>
             </div>
         </div>

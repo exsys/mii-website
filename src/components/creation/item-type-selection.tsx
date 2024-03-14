@@ -6,7 +6,7 @@ type Props = {
     setSelectedItemType: (itemType: string) => void;
 }
 
-export default function ItemType({ selectedItemType, setSelectedItemType }: Props) {
+export default function ItemTypeSelection({ selectedItemType, setSelectedItemType }: Props) {
     return (
         <div className="grid grid-cols-7 text-center">
             <div className={`border-2 border-green-700 p-2 bg-green-200 cursor-pointer
