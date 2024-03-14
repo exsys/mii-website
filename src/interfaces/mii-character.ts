@@ -1,17 +1,18 @@
 export interface MiiCharacter {
-    skin_color: number;
-    head: number;
-    hair: {
-        color: string;
-        type: string;
+    gender?: string;
+    head: {
         id: number;
+        color: number;
+    }
+    hair: {
+        id: number;
+        color: number;
     },
-    eyebrows: number;
     eyes: {
         id: number;
-        color: string;
-        type: string;
+        color: number;
     },
+    eyebrows: number;
     wrinkles: number;
     makeup: number;
     nose: number;
