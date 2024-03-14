@@ -12,15 +12,9 @@ export default function ItemSelection({ itemType }: Props) {
     const [character, setCharacter] = useContext(MiiCharacterContext);
     const [currentItems, setCurrentItems] = useState<any[]>([]);
 
-    useEffect(() => {
-        if (character.gender === "male") {
-
-        }
-
-        if (character.gender === "female") {
-
-        }
-    }, [character, itemType]);
+    const changeItem = (item: any) => {
+        console.log(item.itemType, item.id);
+    };
 
     return (
         <div>
@@ -90,7 +84,8 @@ export default function ItemSelection({ itemType }: Props) {
                     {character.gender === "male" && (
                         <>
                             {PLACEHOLDERS_MALE[itemType as keyof typeof PLACEHOLDERS_MALE].map((item: any, index: number) => (
-                                <div key={index} className="item-button">
+                                <div key={index} className="item-button"
+                                onClick={() => changeItem(item)}>
                                     <span className="absolute top-0 left-1">
                                         {index + 1}
                                     </span>
