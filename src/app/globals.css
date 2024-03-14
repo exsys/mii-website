@@ -17,12 +17,16 @@ body, html {
   }
 
   .item-button {
-    @apply relative cursor-pointer w-10 h-10 border-2 border-black rounded-lg;
+    @apply relative cursor-pointer w-[54px] h-[54px] border-2 border-black rounded-lg flex justify-center items-center;
     @apply bg-gradient-to-b from-[#B6B6B6] to-[#FCFCFC];
   }
 
   .item-type-button {
-    /*@apply bg-gradient-to-b from-[#DEFA33] to-[#90EB3F];*/
-    @apply bg-gradient-to-b from-[#86CD63] to-[#C9D8F5];
+    @apply border-2 border-green-700 py-2 px-3 cursor-pointer flex items-center justify-center;
+    @apply bg-gradient-to-tr from-[#86CD63] to-[#C9D8F5];
+  }
+
+  .item-type-button.active {
+    @apply bg-gradient-to-b from-[#DEFA33] to-[#90EB3F];
   }
 }

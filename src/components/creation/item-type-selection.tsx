@@ -9,40 +9,33 @@ type Props = {
 export default function ItemTypeSelection({ selectedItemType, setSelectedItemType }: Props) {
     return (
         <div className="grid grid-cols-7 text-center">
-            <div className={`border-2 border-green-700 p-2 bg-green-200 cursor-pointer
-                ${selectedItemType === "head" && "bg-green-100"}`}
-                onClick={() => setSelectedItemType("head")}>
-                Head
+            <div className={`item-type-button ${selectedItemType === "face" && "active"}`}
+                onClick={() => setSelectedItemType("face")}>
+                <img src={`/images/placeholder/item-type/type-face-1.svg`} alt="" />
             </div>
-            <div className={`border-2 border-green-700 p-2 bg-green-200 cursor-pointer
-                ${selectedItemType === "hair" && "bg-green-100"}`}
+            <div className={`item-type-button ${selectedItemType === "hair" && "active"}`}
                 onClick={() => setSelectedItemType("hair")}>
-                Hair
+                <img src={`/images/placeholder/item-type/type-hair-1.svg`} alt="" />
             </div>
-            <div className={`border-2 border-green-700 p-2 bg-green-200 cursor-pointer
-                ${selectedItemType === "eyes" && "bg-green-100"}`}
+            <div className={`item-type-button ${selectedItemType === "eyes" && "active"}`}
                 onClick={() => setSelectedItemType("eyes")}>
-                Eyes
+                <img src={`/images/placeholder/item-type/type-eyes-1.svg`} alt="" />
             </div>
-            <div className={`border-2 border-green-700 p-2 bg-green-200 cursor-pointer
-                ${selectedItemType === "nose" && "bg-green-100"}`}
+            <div className={`item-type-button ${selectedItemType === "nose" && "active"}`}
                 onClick={() => setSelectedItemType("nose")}>
-                Nose
+                <img src={`/images/placeholder/item-type/type-nose-1.svg`} alt="" />
             </div>
-            <div className={`border-2 border-green-700 p-2 bg-green-200 cursor-pointer
-                ${selectedItemType === "mouth" && "bg-green-100"}`}
+            <div className={`item-type-button ${selectedItemType === "mouth" && "active"}`}
                 onClick={() => setSelectedItemType("mouth")}>
-                Mouth
+                <img src={`/images/placeholder/item-type/type-mouth-1.svg`} alt="" />
             </div>
-            <div className={`border-2 border-green-700 p-2 bg-green-200 cursor-pointer
-                ${selectedItemType === "eyebrows" && "bg-green-100"}`}
+            <div className={`item-type-button ${selectedItemType === "eyebrows" && "active"}`}
                 onClick={() => setSelectedItemType("eyebrows")}>
-                Eyebrows
+                <img src={`/images/placeholder/item-type/type-eyebrows-1.svg`} alt="" />
             </div>
-            <div className={`border-2 border-green-700 p-2 bg-green-200 cursor-pointer
-                ${selectedItemType === "glasses" && "bg-green-100"}`}
+            <div className={`item-type-button ${selectedItemType === "glasses" && "active"}`}
                 onClick={() => setSelectedItemType("glasses")}>
-                Glasses
+                <img src={`/images/placeholder/item-type/type-glasses-1.svg`} alt="" />
             </div>
         </div>
     )

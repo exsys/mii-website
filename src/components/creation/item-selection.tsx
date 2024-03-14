@@ -1,5 +1,5 @@
 "use client";
-import { ITEMS_MALE, ITEMS_FEMALE } from "@/assets/items"
+import { ITEMS_MALE, ITEMS_FEMALE, PLACEHOLDERS_MALE } from "@/assets/items"
 import { MiiCharacterContext } from "@/providers/character-provider";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { useContext, useEffect, useState } from "react";
@@ -18,13 +18,13 @@ export default function ItemSelection({ itemType }: Props) {
         }
 
         if (character.gender === "female") {
-            
+
         }
     }, [character, itemType]);
 
     return (
         <div>
-            {itemType === "head" ? (
+            {itemType === "face" ? (
                 <div className="border-4 border-gray-400">
                     <div className="border-b-2 border-gray-400">
                         <h2 className="text-3xl px-2 pt-2">
@@ -87,14 +87,24 @@ export default function ItemSelection({ itemType }: Props) {
                 </div>
             ) : (
                 <div className="grid grid-cols-6 gap-2 flex-wrap">
-                    {ITEMS_MALE[itemType as keyof typeof ITEMS_MALE].map((item: any, index: number) => (
-                        <div key={index} className="item-button">
-                            <span className="absolute top-0 left-1">
-                                {index + 1}
-                            </span>
-                            <img src="" alt="" />
+                    {character.gender === "male" && (
+                        <>
+                            {PLACEHOLDERS_MALE[itemType as keyof typeof PLACEHOLDERS_MALE].map((item: any, index: number) => (
+                                <div key={index} className="item-button">
+                                    <span className="absolute top-0 left-1">
+                                        {index + 1}
+                                    </span>
+                                    <img src={item.src} alt="" />
+                                </div>
+                            ))}
+                        </>
+                    )}
+
+                    {character.gender === "female" && (
+                        <div>
+
                         </div>
-                    ))}
+                    )}
                 </div>
             )}
         </div>

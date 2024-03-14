@@ -7,10 +7,10 @@ import { MiiCharacterContext } from "@/providers/character-provider";
 
 export default function CharacterCreation() {
     const [character, setCharacter] = useContext(MiiCharacterContext);
-    const [selectedItemType, setSelectedItemType] = useState<string>("head");
+    const [selectedItemType, setSelectedItemType] = useState<string>("face");
 
     return (
-        <div className="h-full">
+        <div className="h-full w-full max-w-[600px]">
             <div className="h-full flex justify-center items-center flex-col gap-10">
                 <div>
                     <ItemTypeSelection selectedItemType={selectedItemType} setSelectedItemType={setSelectedItemType} />
