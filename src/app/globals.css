@@ -10,4 +10,19 @@ body, html {
   .text-balance {
     text-wrap: balance;
   }
+
+  .arrow-button {
+    @apply cursor-pointer w-10 h-10 border-2 border-black rounded-lg;
+    @apply bg-gradient-to-b from-[#B6B6B6] to-[#FCFCFC];
+  }
+
+  .item-button {
+    @apply relative cursor-pointer w-10 h-10 border-2 border-black rounded-lg;
+    @apply bg-gradient-to-b from-[#B6B6B6] to-[#FCFCFC];
+  }
+
+  .item-type-button {
+    /*@apply bg-gradient-to-b from-[#DEFA33] to-[#90EB3F];*/
+    @apply bg-gradient-to-b from-[#86CD63] to-[#C9D8F5];
+  }
 }

@@ -1,4 +1,8 @@
-export default function Character() {
+type Props = {
+    gender: string;
+}
+
+export default function Character({ gender }: Props) {
     return (
         <div>
             <img src="/items/head1.svg" alt="" className="translate-x-1/4 z-10" />

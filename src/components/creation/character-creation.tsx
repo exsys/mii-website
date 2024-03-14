@@ -19,8 +19,8 @@ export default function CharacterCreation({ gender }: Props) {
                 </div>
 
                 <div className="flex gap-5 justify-between w-full">
-                    <Character />
-                    <ItemSelection itemType={selectedItemType} />
+                    <Character gender={gender} />
+                    <ItemSelection itemType={selectedItemType} gender={gender} />
                 </div>
             </div>
         </div>

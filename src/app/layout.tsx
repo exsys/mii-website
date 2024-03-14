@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import AosProvider from "@/providers/aos-provider";
+import { MiiCharacterProvider } from "@/providers/character-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,9 +15,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <AosProvider>
-        <body className={inter.className}>
-          {children}
-        </body>
+        <MiiCharacterProvider>
+          <body className={inter.className}>
+            {children}
+          </body>
+        </MiiCharacterProvider>
       </AosProvider>
     </html>
   );

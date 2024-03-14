@@ -1,3 +1,24 @@
+export const PLACEHOLDERS_MALE = {
+    hair: [
+        { id: 1, src: "/placeholder/mphair1.svg"},
+        { id: 2, src: "/placeholder/mphair2.svg"},
+        { id: 3, src: "/placeholder/mphair3.svg"},
+        { id: 4, src: "/placeholder/mphair4.svg"},
+        { id: 5, src: "/placeholder/mphair5.svg"},
+        { id: 6, src: "/placeholder/mphair6.svg"},
+        { id: 7, src: "/placeholder/mphair7.svg"},
+        { id: 8, src: "/placeholder/mphair8.svg"},
+        { id: 9, src: "/placeholder/mphair9.svg"},
+        { id: 10, src: "/placeholder/mphair10.svg"},
+        { id: 11, src: "/placeholder/mphair11.svg"},
+        { id: 12, src: "/placeholder/mphair12.svg"},
+    ],
+};
+
+export const PLACEHOLDERS_FEMALE = {
+
+};
+
 export const ITEMS_MALE = {
     head: [
         { id: 1, name: "head1", src: "/items/head1.svg" },
