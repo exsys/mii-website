@@ -16,6 +16,14 @@ export default function ItemSelection({ itemType }: Props) {
         console.log(item.itemType, item.id);
     };
 
+    const nextItem = (item: any) => {
+        console.log(item + " next item");
+    }
+
+    const prevItem = (item: any) => {
+        console.log(item + " previous item");
+    }
+
     return (
         <div>
             {itemType === "face" ? (
@@ -25,14 +33,14 @@ export default function ItemSelection({ itemType }: Props) {
                             Skin Color
                         </h2>
                         <div className="px-2 pb-2">
-                            <div className="flex items-center justify-center gap-1">
-                                <div className="arrow-button">
+                            <div className="flex items-center justify-center gap-2">
+                                <div className="arrow-button" onClick={() => prevItem("skin_color")}>
                                     <img src="/icons/left-arrow.svg" alt="" className="w-full h-full" />
                                 </div>
                                 <div>
                                     <img src="/items/skin-color.png" alt="" className="scale-75" />
                                 </div>
-                                <div className="arrow-button">
+                                <div className="arrow-button" onClick={() => nextItem("skin_color")}>
                                     <img src="/icons/right-arrow.svg" alt="" className="w-full h-full" />
                                 </div>
                             </div>
@@ -42,37 +50,37 @@ export default function ItemSelection({ itemType }: Props) {
                         <h2 className="text-3xl">
                             Facial Features
                         </h2>
-                        <div className="flex flex-col gap-6">
-                            <div className="flex items-center justify-center gap-2">
-                                <div className="arrow-button">
+                        <div className="flex flex-col gap-3">
+                            <div className="flex items-center justify-center gap-3">
+                                <div className="arrow-button" onClick={() => prevItem("head")}>
                                     <img src="/icons/left-arrow.svg" alt="" className="w-full h-full" />
                                 </div>
                                 <div>
                                     <img src="/images/placeholder/face-smile.svg" alt="" />
                                 </div>
-                                <div className="arrow-button">
+                                <div className="arrow-button" onClick={() => nextItem("head")}>
                                     <img src="/icons/right-arrow.svg" alt="" className="w-full h-full" />
                                 </div>
                             </div>
-                            <div className="flex items-center justify-center gap-2">
-                                <div className="arrow-button">
+                            <div className="flex items-center justify-center gap-3">
+                                <div className="arrow-button" onClick={() => prevItem("makeup")}>
                                     <img src="/icons/left-arrow.svg" alt="" className="w-full h-full" />
                                 </div>
                                 <div>
                                     <img src="/images/placeholder/makeup.svg" alt="" />
                                 </div>
-                                <div className="arrow-button">
+                                <div className="arrow-button" onClick={() => nextItem("makeup")}>
                                     <img src="/icons/right-arrow.svg" alt="" className="w-full h-full" />
                                 </div>
                             </div>
-                            <div className="flex items-center justify-center gap-2">
-                                <div className="arrow-button">
+                            <div className="flex items-center justify-center gap-3">
+                                <div className="arrow-button" onClick={() => prevItem("wrinkles")}>
                                     <img src="/icons/left-arrow.svg" alt="" className="w-full h-full" />
                                 </div>
                                 <div>
                                     <img src="/images/placeholder/wrinkles.svg" alt="" />
                                 </div>
-                                <div className="arrow-button">
+                                <div className="arrow-button" onClick={() => nextItem("wrinkles")}>
                                     <img src="/icons/right-arrow.svg" alt="" className="w-full h-full" />
                                 </div>
                             </div>
@@ -80,7 +88,7 @@ export default function ItemSelection({ itemType }: Props) {
                     </div>
                 </div>
             ) : (
-                <div className="grid grid-cols-6 gap-2 flex-wrap">
+                <div className="grid grid-cols-5 gap-2 flex-wrap">
                     {character.gender === "male" && (
                         <>
                             {ITEMS_MALE[itemType as keyof typeof ITEMS_MALE].map((item: any, index: number) => (
