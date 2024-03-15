@@ -65,7 +65,7 @@ export default function Character() {
 
     return (
         <div>
-
+            <img src={imageUrl} alt="" />
         </div>
     )
 }

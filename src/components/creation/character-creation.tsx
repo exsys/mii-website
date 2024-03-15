@@ -1,9 +1,8 @@
 "use client";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import Character from "./character";
 import ItemSelection from "./item-selection";
 import ItemTypeSelection from "./item-type-selection";
-import { MiiCharacterContext } from "@/providers/character-provider";
 
 export default function CharacterCreation() {
     const [selectedItemType, setSelectedItemType] = useState<string>("face");
