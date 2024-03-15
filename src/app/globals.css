@@ -12,12 +12,12 @@ body, html {
   }
 
   .arrow-button {
-    @apply w-10 h-10 border-2 border-black rounded-lg;
+    @apply w-10 h-10 border-2 border-black rounded-lg hover:scale-95;
     @apply bg-gradient-to-b from-[#B6B6B6] to-[#FCFCFC];
   }
 
   .item-button {
-    @apply relative w-[54px] h-[54px] border-2 border-black rounded-lg flex justify-center items-center;
+    @apply relative w-[54px] h-[54px] border-2 border-black rounded-lg flex justify-center items-center hover:scale-95;
     @apply bg-gradient-to-b from-[#B6B6B6] to-[#FCFCFC];
   }
 

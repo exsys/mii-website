@@ -1,5 +1,5 @@
 "use client";
-import { ITEMS_MALE, ITEMS_FEMALE, PLACEHOLDERS_MALE, PLACEHOLDERS_FEMALE } from "@/assets/items"
+import { ITEMS_MALE, ITEMS_FEMALE } from "@/assets/items"
 import { MiiCharacterContext } from "@/providers/character-provider";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { useContext, useEffect, useState } from "react";
@@ -83,13 +83,13 @@ export default function ItemSelection({ itemType }: Props) {
                 <div className="grid grid-cols-6 gap-2 flex-wrap">
                     {character.gender === "male" && (
                         <>
-                            {PLACEHOLDERS_MALE[itemType as keyof typeof PLACEHOLDERS_MALE].map((item: any, index: number) => (
+                            {ITEMS_MALE[itemType as keyof typeof ITEMS_MALE].map((item: any, index: number) => (
                                 <div key={index} className="item-button"
                                 onClick={() => changeItem(item)}>
                                     <span className="absolute top-0 left-1">
                                         {index + 1}
                                     </span>
-                                    <img src={item.src} alt="" />
+                                    <img src={item.placeholder} alt="" />
                                 </div>
                             ))}
                         </>
@@ -97,12 +97,12 @@ export default function ItemSelection({ itemType }: Props) {
 
                     {character.gender === "female" && (
                         <>
-                            {PLACEHOLDERS_FEMALE[itemType as keyof typeof PLACEHOLDERS_FEMALE].map((item: any, index: number) => (
+                            {ITEMS_FEMALE[itemType as keyof typeof ITEMS_FEMALE].map((item: any, index: number) => (
                                 <div key={index} className="item-button">
                                     <span className="absolute top-0 left-1">
                                         {index + 1}
                                     </span>
-                                    <img src={item.src} alt="" />
+                                    <img src={item.placeholder} alt="" />
                                 </div>
                             ))}
                         </>
