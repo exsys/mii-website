@@ -1,10 +1,13 @@
 import { ITEM_Z_INDEX } from "@/assets/character";
 import { NextRequest, NextResponse } from "next/server";
 import sharp from "sharp";
+import fs from "fs";
+import path from "path";
 
 type zlayer = keyof typeof ITEM_Z_INDEX;
 const imageWidth = 240;
 const imageHeight = 380;
+const imagePath = path.join(process.cwd(), "/public/images/character.png");
 
 export async function POST(req: NextRequest) {
     const items = await req.json();
@@ -14,7 +17,7 @@ export async function POST(req: NextRequest) {
         return ITEM_Z_INDEX[a.itemType as zlayer] - ITEM_Z_INDEX[b.itemType as zlayer];
     });
 
-    /*await sharp({
+    await sharp({
         create: {
             width: imageWidth,
             height: imageHeight,
@@ -23,13 +26,15 @@ export async function POST(req: NextRequest) {
         }
     })
         .composite(items.map((item: any, index: number) => ({
-            input: item.src,
-            left: 0,
-            top: 0,
-            width: 480,
-            height: 640,
+            input: path.join(process.cwd(), `/public${item.src}`),
+            left: item.position.left,
+            top: item.position.top,
+            width: imageWidth,
+            height: imageHeight,
         })))
         .toFormat("png", { quality: 100 })
-        .toFile("/public/images/character.png");*/
-    return NextResponse.json({ message: "success", status: 200 }, { status: 200 });
+        .toFile(imagePath);
+
+    const imageBuffer = fs.readFileSync(imagePath);
+    return new NextResponse(imageBuffer, { headers: { 'Content-Type': 'image/png' } });
 }

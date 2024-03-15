@@ -21,16 +21,16 @@ export const DEFAULT_CHARACTER: MiiCharacter = {
 
 // layer order of the different item types
 export const ITEM_Z_INDEX = {
-    head: 2,
-    hair: 8,
-    eyes: 3,
-    eyebrows: 4,
-    wrinkles: 5,
-    makeup: 5,
-    nose: 3,
-    mouth: 3,
-    glasses: 7,
-    beard: 6,
-    hat: 9,
     outfit: 1,
+    head: 2,
+    eyes: 3,
+    mouth: 4,
+    nose: 5,
+    eyebrows: 6,
+    makeup: 7,
+    wrinkles: 8,
+    beard: 9,
+    glasses: 10,
+    hair: 11,
+    hat: 12,
 };

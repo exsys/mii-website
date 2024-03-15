@@ -1,6 +1,6 @@
 "use client";
 import { MiiCharacterContext } from "@/providers/character-provider";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import sharp from "sharp";
 import { DEFAULT_CHARACTER, ITEM_Z_INDEX } from "@/assets/character";
 import { ITEMS_FEMALE, ITEMS_MALE } from "@/assets/items";
@@ -9,6 +9,7 @@ type zlayer = keyof typeof ITEM_Z_INDEX;
 
 export default function Character() {
     const [character, setCharacter] = useContext(MiiCharacterContext);
+    const [imageUrl, setImageUrl] = useState<string>("");
 
     useEffect(() => {
         if (character) {
@@ -36,8 +37,8 @@ export default function Character() {
 
             // iterate through each item type (like hair, eyes, etc)
             let items: any[] = [];
-            for (let i = 0; i < Object.keys(allItems).length; i++) {
-                const itemType = Object.keys(allItems)[i] as zlayer;
+            for (let i = 0; i < Object.keys(itemIds).length; i++) {
+                const itemType = Object.keys(itemIds)[i] as zlayer;
                 const itemId: any = character[itemType];
                 const item: any = allItems[itemType].find((item: any) => item.id === itemId); // item object of each item type
                 items.push(item);
@@ -53,8 +54,9 @@ export default function Character() {
                     body: JSON.stringify(items),
                     headers: { "Content-Type": "application/json" },
                 });
-                const data = await res.json();
-                console.log(data);
+                const blob = await res.blob();
+                const objectURL = URL.createObjectURL(blob);
+                setImageUrl(objectURL);
             } catch (error) {
                 console.log(error)
             }
