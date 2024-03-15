@@ -27,7 +27,7 @@ export const ITEM_Z_INDEX = {
     mouth: 4,
     nose: 5,
     eyebrows: 6,
-    makeup: 7,
+    makeup: 2,
     wrinkles: 8,
     beard: 9,
     glasses: 10,
