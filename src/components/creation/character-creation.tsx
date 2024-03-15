@@ -6,7 +6,6 @@ import ItemTypeSelection from "./item-type-selection";
 import { MiiCharacterContext } from "@/providers/character-provider";
 
 export default function CharacterCreation() {
-    const [character, setCharacter] = useContext(MiiCharacterContext);
     const [selectedItemType, setSelectedItemType] = useState<string>("face");
 
     return (
