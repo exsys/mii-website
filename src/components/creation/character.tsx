@@ -7,7 +7,7 @@ export default function Character() {
 
     useEffect(() => {
         if (character) {
-            console.log(character);
+            // TODO: create image with sharp
         }
     }, [character]);
     
