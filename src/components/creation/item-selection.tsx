@@ -8,20 +8,69 @@ type Props = {
     itemType: string;
 }
 
+type MaleItem = keyof typeof ITEMS_MALE;
+type FemaleItem = keyof typeof ITEMS_FEMALE;
+
 export default function ItemSelection({ itemType }: Props) {
     const [character, setCharacter] = useContext(MiiCharacterContext);
     const [currentItems, setCurrentItems] = useState<any[]>([]);
+
+    useEffect(() => {
+        if (character) {
+            setCurrentItems(character);
+        }
+    }, []);
 
     const changeItem = (item: any) => {
         console.log(item.itemType, item.id);
     };
 
-    const nextItem = (item: any) => {
-        console.log(item + " next item");
+    const nextItem = async (item: any) => {
+        if (item.includes("color")) {
+            console.log("switch color");
+            return;
+        }
+
+        let newCharacter = { ...character };
+
+        // reset item id if it's out of bounds
+        if (character.gender === "male") {
+            if (newCharacter[item] > ITEMS_MALE[item as MaleItem].length) {
+                newCharacter[item] = 1;
+            }
+        }
+        if (character.gender === "female") {
+            if (newCharacter[item] > ITEMS_FEMALE[item as FemaleItem].length) {
+                newCharacter[item] = 1;
+            }
+        }
+
+        newCharacter[item] += 1;
+        setCharacter(newCharacter); // character component will pick up on the change and call the backend to generate the new image
     }
 
     const prevItem = (item: any) => {
-        console.log(item + " previous item");
+        if (item.includes("color")) {
+            console.log("switch color");
+            return;
+        }
+
+        let newCharacter = { ...character };
+
+        // reset item id if it's out of bounds
+        if (character.gender === "male") {
+            if (newCharacter[item] < 1) {
+                newCharacter[item] = ITEMS_MALE[item as MaleItem].length - 1;
+            }
+        }
+        if (character.gender === "female") {
+            if (newCharacter[item] < 1) {
+                newCharacter[item] = ITEMS_FEMALE[item as FemaleItem].length - 1;
+            }
+        }
+
+        newCharacter[item] -= 1;
+        setCharacter(newCharacter); // character component will pick up on the change and call the backend to generate the new image
     }
 
     return (
@@ -93,7 +142,7 @@ export default function ItemSelection({ itemType }: Props) {
                         <>
                             {ITEMS_MALE[itemType as keyof typeof ITEMS_MALE].map((item: any, index: number) => (
                                 <div key={index} className="item-button"
-                                onClick={() => changeItem(item)}>
+                                    onClick={() => changeItem(item)}>
                                     <span className="absolute top-0 left-1">
                                         {index + 1}
                                     </span>
