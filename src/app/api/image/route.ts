@@ -14,10 +14,6 @@ const imagePath = path.join(process.cwd(), "/public/images/character.png");
 export async function POST(req: NextRequest) {
     const character = await req.json();
 
-    // TODO: handle color change
-    // hair color -> hair & eyebrows & beard
-    // eye color -> eyes
-
     let allItems: any;
     switch (character.gender) {
         case "male":
@@ -76,8 +72,8 @@ export async function POST(req: NextRequest) {
         const eyesObject = items.find((item: any) => item.itemType === "eyes");
         eyesObject.src = await sharp(eyesObject.src)
             .gamma(
-                EYEGAMMA_MAPPING_1[character.hair_color as keyof typeof EYEGAMMA_MAPPING_1],
-                EYEGAMMA_MAPPING_2[character.hair_color as keyof typeof EYEGAMMA_MAPPING_2]
+                EYEGAMMA_MAPPING_1[character.eye_color as keyof typeof EYEGAMMA_MAPPING_1],
+                EYEGAMMA_MAPPING_2[character.eye_color as keyof typeof EYEGAMMA_MAPPING_2]
             )
             .tint(EYECOLOR_MAPPING[character.eye_color as keyof typeof EYECOLOR_MAPPING])
             .toBuffer();
@@ -87,8 +83,6 @@ export async function POST(req: NextRequest) {
     items.sort((a: any, b: any) => {
         return ITEM_Z_INDEX[a.itemType as zlayer] - ITEM_Z_INDEX[b.itemType as zlayer];
     });
-
-    console.log(items)
 
     await sharp({
         create: {
