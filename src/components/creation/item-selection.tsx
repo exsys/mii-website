@@ -10,10 +10,12 @@ type Props = {
 type MaleItem = keyof typeof ITEMS_MALE;
 type FemaleItem = keyof typeof ITEMS_FEMALE;
 
-const SKIN_COLORS = 4;
-const HAIR_COLORS = 7;
-const EYE_COLORS = 7;
-const SHIRT_COLORS = 9;
+const TOTAL_COLORS = {
+    skin_color: 4,
+    hair_color: 7,
+    eye_color: 7,
+    shirt_color: 9
+};
 
 export default function ItemSelection({ itemType }: Props) {
     const [character, setCharacter] = useContext(MiiCharacterContext);
@@ -26,14 +28,12 @@ export default function ItemSelection({ itemType }: Props) {
 
     const nextItem = async (item: any) => {
         if (item.includes("color")) {
-            if (item === "skin_color") {
-                let newCharacter = { ...character };
-                newCharacter.skin_color += 1;
-                if (newCharacter.skin_color > SKIN_COLORS) {
-                    newCharacter.skin_color = 1;
-                }
-                setCharacter(newCharacter);
+            let newCharacter = { ...character };
+            newCharacter[item] += 1;
+            if (newCharacter[item] > TOTAL_COLORS[item as keyof typeof TOTAL_COLORS]) {
+                newCharacter[item] = 1;
             }
+            setCharacter(newCharacter);
             return;
         }
 
@@ -57,14 +57,12 @@ export default function ItemSelection({ itemType }: Props) {
 
     const prevItem = (item: any) => {
         if (item.includes("color")) {
-            if (item === "skin_color") {
-                let newCharacter = { ...character };
-                newCharacter.skin_color -= 1;
-                if (newCharacter.skin_color < 1) {
-                    newCharacter.skin_color = SKIN_COLORS;
-                }
-                setCharacter(newCharacter);
+            let newCharacter = { ...character };
+            newCharacter[item] -= 1;
+            if (newCharacter[item] < 1) {
+                newCharacter[item] = TOTAL_COLORS[item as keyof typeof TOTAL_COLORS];
             }
+            setCharacter(newCharacter);
             return;
         }
 
@@ -150,33 +148,54 @@ export default function ItemSelection({ itemType }: Props) {
                     </div>
                 </div>
             ) : (
-                <div className="grid grid-cols-5 gap-2 flex-wrap">
-                    {character.gender === "male" && (
-                        <>
-                            {ITEMS_MALE[itemType as keyof typeof ITEMS_MALE].map((item: any, index: number) => (
-                                <div key={index} className="item-button" onClick={() => changeItem(item)}>
-                                    <span className="absolute top-0 left-1">
-                                        {index + 1}
-                                    </span>
-                                    <img src={item.placeholder} alt="" />
-                                </div>
-                            ))}
-                        </>
-                    )}
+                <>
+                    <div className="grid grid-cols-5 gap-2 flex-wrap">
+                        {character.gender === "male" && (
+                            <>
+                                {ITEMS_MALE[itemType as keyof typeof ITEMS_MALE].map((item: any, index: number) => (
+                                    <div key={index} className="item-button" onClick={() => changeItem(item)}>
+                                        <span className="absolute top-0 left-1">
+                                            {index + 1}
+                                        </span>
+                                        <img src={item.placeholder} alt="" />
+                                    </div>
+                                ))}
+                            </>
+                        )}
 
-                    {character.gender === "female" && (
-                        <>
-                            {ITEMS_FEMALE[itemType as keyof typeof ITEMS_FEMALE].map((item: any, index: number) => (
-                                <div key={index} className="item-button" onClick={() => changeItem(item)}>
-                                    <span className="absolute top-0 left-1">
-                                        {index + 1}
-                                    </span>
-                                    <img src={item.placeholder} alt="" />
+                        {character.gender === "female" && (
+                            <>
+                                {ITEMS_FEMALE[itemType as keyof typeof ITEMS_FEMALE].map((item: any, index: number) => (
+                                    <div key={index} className="item-button" onClick={() => changeItem(item)}>
+                                        <span className="absolute top-0 left-1">
+                                            {index + 1}
+                                        </span>
+                                        <img src={item.placeholder} alt="" />
+                                    </div>
+                                ))}
+                            </>
+                        )}
+                    </div>
+                    {itemType === "hair" && (
+                        <div className="bg-black/20 border-2 border-black/30 py-1 px-3 mt-4 flex gap-5 items-center
+                        justify-center">
+                            <h3 className="text-xl">
+                                Hair Color
+                            </h3>
+                            <div className="flex gap-2 items-center">
+                                <div className="arrow-button !w-8 !h-8" onClick={() => prevItem("hair_color")}>
+                                    <img src="/icons/left-arrow.svg" alt="" className="w-full h-full" />
                                 </div>
-                            ))}
-                        </>
+                                <div>
+                                    <img src={`/items/placeholder/colors/haircolor${character.hair_color}.svg`} alt="" />
+                                </div>
+                                <div className="arrow-button !w-8 !h-8" onClick={() => nextItem("hair_color")}>
+                                    <img src="/icons/right-arrow.svg" alt="" className="w-full h-full" />
+                                </div>
+                            </div>
+                        </div>
                     )}
-                </div>
+                </>
             )}
         </div>
     )

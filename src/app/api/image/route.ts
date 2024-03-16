@@ -4,6 +4,7 @@ import sharp from "sharp";
 import fs from "fs";
 import path from "path";
 import { ITEMS_FEMALE, ITEMS_MALE } from "@/assets/items";
+import { HAIRCOLOR_MAPPING, HAIRGAMMA_MAPPING_1, HAIRGAMMA_MAPPING_2 } from "@/assets/mappings";
 
 type zlayer = keyof typeof ITEM_Z_INDEX;
 const imageWidth = 240;
@@ -20,10 +21,10 @@ export async function POST(req: NextRequest) {
     let allItems: any;
     switch (character.gender) {
         case "male":
-            allItems = {...ITEMS_MALE};
+            allItems = { ...ITEMS_MALE };
             break;
         case "female":
-            allItems = {...ITEMS_FEMALE};
+            allItems = { ...ITEMS_FEMALE };
             break;
         default:
             console.log("Error: gender is not defined");
@@ -43,12 +44,28 @@ export async function POST(req: NextRequest) {
         }
 
         const item: any = allItems[itemType].find((item: any) => item.id === itemId); // item object of each item type
-        items.push({...item});
+        const copy = { ...item }; // copy needed because else nextjs will use the reference when multiple calls occur. it will just add to the string instead of replace it.
+        copy.src = path.join(process.cwd(), `/public${item.src}`);
+        items.push({ ...copy });
     }
 
     // replace color related items with the correct color
     const headObject = items.find((item: any) => item.itemType === "head");
     headObject.src = headObject.src.replace(`head${headObject.id}`, `head${headObject.id}-${character.skin_color}`);
+
+    if (character.hair_color !== 1) {
+        const hairObject = items.find((item: any) => item.itemType === "hair");
+        const eyebrowsObject = items.find((item: any) => item.itemType === "eyebrows");
+        console.log(HAIRCOLOR_MAPPING[character.hair_color as keyof typeof HAIRCOLOR_MAPPING])
+        hairObject.src = await sharp(hairObject.src)
+            .gamma(HAIRGAMMA_MAPPING_1[character.hair_color as keyof typeof HAIRGAMMA_MAPPING_1], HAIRGAMMA_MAPPING_2[character.hair_color as keyof typeof HAIRGAMMA_MAPPING_2])
+            .tint(HAIRCOLOR_MAPPING[character.hair_color as keyof typeof HAIRCOLOR_MAPPING])
+            .toBuffer();
+        eyebrowsObject.src = await sharp(eyebrowsObject.src)
+            .gamma(HAIRGAMMA_MAPPING_1[character.hair_color as keyof typeof HAIRGAMMA_MAPPING_1], HAIRGAMMA_MAPPING_2[character.hair_color as keyof typeof HAIRGAMMA_MAPPING_2])
+            .tint(HAIRCOLOR_MAPPING[character.hair_color as keyof typeof HAIRCOLOR_MAPPING])
+            .toBuffer();
+    }
 
     // sort item types by correct z-index (so sharp can layer them correctly)
     items.sort((a: any, b: any) => {
@@ -64,7 +81,7 @@ export async function POST(req: NextRequest) {
         }
     })
         .composite(items.map((item: any, index: number) => ({
-            input: path.join(process.cwd(), `/public${item.src}`),
+            input: item.src,
             left: item.position.left,
             top: item.position.top,
             width: imageWidth,
