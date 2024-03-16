@@ -1,7 +1,7 @@
 "use client";
 import { ITEMS_MALE, ITEMS_FEMALE } from "@/assets/items"
 import { MiiCharacterContext } from "@/providers/character-provider";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 
 type Props = {
     itemType: string;
@@ -9,6 +9,11 @@ type Props = {
 
 type MaleItem = keyof typeof ITEMS_MALE;
 type FemaleItem = keyof typeof ITEMS_FEMALE;
+
+const SKIN_COLORS = 4;
+const HAIR_COLORS = 7;
+const EYE_COLORS = 7;
+const SHIRT_COLORS = 9;
 
 export default function ItemSelection({ itemType }: Props) {
     const [character, setCharacter] = useContext(MiiCharacterContext);
@@ -21,7 +26,14 @@ export default function ItemSelection({ itemType }: Props) {
 
     const nextItem = async (item: any) => {
         if (item.includes("color")) {
-            console.log("switch color");
+            if (item === "skin_color") {
+                let newCharacter = { ...character };
+                newCharacter.skin_color += 1;
+                if (newCharacter.skin_color > SKIN_COLORS) {
+                    newCharacter.skin_color = 1;
+                }
+                setCharacter(newCharacter);
+            }
             return;
         }
 
@@ -45,7 +57,14 @@ export default function ItemSelection({ itemType }: Props) {
 
     const prevItem = (item: any) => {
         if (item.includes("color")) {
-            console.log("switch color");
+            if (item === "skin_color") {
+                let newCharacter = { ...character };
+                newCharacter.skin_color -= 1;
+                if (newCharacter.skin_color < 1) {
+                    newCharacter.skin_color = SKIN_COLORS;
+                }
+                setCharacter(newCharacter);
+            }
             return;
         }
 

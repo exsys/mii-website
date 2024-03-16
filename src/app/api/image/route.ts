@@ -14,14 +14,16 @@ export async function POST(req: NextRequest) {
     const character = await req.json();
 
     // TODO: handle color change
+    // hair color -> hair & eyebrows & beard
+    // eye color -> eyes
 
     let allItems: any;
     switch (character.gender) {
         case "male":
-            allItems = ITEMS_MALE;
+            allItems = {...ITEMS_MALE};
             break;
         case "female":
-            allItems = ITEMS_FEMALE;
+            allItems = {...ITEMS_FEMALE};
             break;
         default:
             console.log("Error: gender is not defined");
@@ -36,12 +38,17 @@ export async function POST(req: NextRequest) {
     for (let i = 0; i < Object.keys(character).length; i++) {
         const itemType = Object.keys(character)[i] as zlayer;
         const itemId: any = character[itemType];
-        if (itemType.includes("color") || ignoreList.includes(itemType)) {
+        if (ignoreList.includes(itemType) || itemType.includes("color")) {
             continue;
         }
+
         const item: any = allItems[itemType].find((item: any) => item.id === itemId); // item object of each item type
-        items.push(item);
+        items.push({...item});
     }
+
+    // replace color related items with the correct color
+    const headObject = items.find((item: any) => item.itemType === "head");
+    headObject.src = headObject.src.replace(`head${headObject.id}`, `head${headObject.id}-${character.skin_color}`);
 
     // sort item types by correct z-index (so sharp can layer them correctly)
     items.sort((a: any, b: any) => {
