@@ -135,8 +135,7 @@ export default function ItemSelection({ itemType }: Props) {
                     {character.gender === "male" && (
                         <>
                             {ITEMS_MALE[itemType as keyof typeof ITEMS_MALE].map((item: any, index: number) => (
-                                <div key={index} className="item-button"
-                                    onClick={() => changeItem(item)}>
+                                <div key={index} className="item-button" onClick={() => changeItem(item)}>
                                     <span className="absolute top-0 left-1">
                                         {index + 1}
                                     </span>
@@ -149,7 +148,7 @@ export default function ItemSelection({ itemType }: Props) {
                     {character.gender === "female" && (
                         <>
                             {ITEMS_FEMALE[itemType as keyof typeof ITEMS_FEMALE].map((item: any, index: number) => (
-                                <div key={index} className="item-button">
+                                <div key={index} className="item-button" onClick={() => changeItem(item)}>
                                     <span className="absolute top-0 left-1">
                                         {index + 1}
                                     </span>

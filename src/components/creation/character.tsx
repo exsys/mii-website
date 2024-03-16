@@ -1,9 +1,7 @@
 "use client";
 import { MiiCharacterContext } from "@/providers/character-provider";
 import { useContext, useEffect, useState } from "react";
-import sharp from "sharp";
-import { DEFAULT_CHARACTER, ITEM_Z_INDEX } from "@/assets/character";
-import { ITEMS_FEMALE, ITEMS_MALE } from "@/assets/items";
+import { ITEM_Z_INDEX } from "@/assets/character";
 
 type zlayer = keyof typeof ITEM_Z_INDEX;
 

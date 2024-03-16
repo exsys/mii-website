@@ -14,7 +14,6 @@ export async function POST(req: NextRequest) {
     const character = await req.json();
 
     // TODO: handle color change
-    // TODO: positioning of non-face items
 
     let allItems: any;
     switch (character.gender) {
