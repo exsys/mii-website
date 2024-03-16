@@ -12,7 +12,6 @@ const imagePath = path.join(process.cwd(), "/public/images/character.png");
 
 export async function POST(req: NextRequest) {
     const character = await req.json();
-    console.log(character)
 
     // TODO: handle color change
     // TODO: positioning of non-face items

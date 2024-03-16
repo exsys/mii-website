@@ -22,7 +22,9 @@ export default function ItemSelection({ itemType }: Props) {
     }, []);
 
     const changeItem = (item: any) => {
-        console.log(item.itemType, item.id);
+        let newCharacter = { ...character };
+        newCharacter[item.itemType] = item.id;
+        setCharacter(newCharacter);
     };
 
     const nextItem = async (item: any) => {
