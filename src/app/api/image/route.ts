@@ -4,7 +4,7 @@ import sharp from "sharp";
 import fs from "fs";
 import path from "path";
 import { ITEMS_FEMALE, ITEMS_MALE } from "@/assets/items";
-import { HAIRCOLOR_MAPPING, HAIRGAMMA_MAPPING_1, HAIRGAMMA_MAPPING_2 } from "@/assets/mappings";
+import { EYECOLOR_MAPPING, EYEGAMMA_MAPPING_1, EYEGAMMA_MAPPING_2, HAIRCOLOR_MAPPING, HAIRGAMMA_MAPPING_1, HAIRGAMMA_MAPPING_2 } from "@/assets/mappings";
 
 type zlayer = keyof typeof ITEM_Z_INDEX;
 const imageWidth = 240;
@@ -56,14 +56,30 @@ export async function POST(req: NextRequest) {
     if (character.hair_color !== 1) {
         const hairObject = items.find((item: any) => item.itemType === "hair");
         const eyebrowsObject = items.find((item: any) => item.itemType === "eyebrows");
-        console.log(HAIRCOLOR_MAPPING[character.hair_color as keyof typeof HAIRCOLOR_MAPPING])
         hairObject.src = await sharp(hairObject.src)
-            .gamma(HAIRGAMMA_MAPPING_1[character.hair_color as keyof typeof HAIRGAMMA_MAPPING_1], HAIRGAMMA_MAPPING_2[character.hair_color as keyof typeof HAIRGAMMA_MAPPING_2])
+            .gamma(
+                HAIRGAMMA_MAPPING_1[character.hair_color as keyof typeof HAIRGAMMA_MAPPING_1],
+                HAIRGAMMA_MAPPING_2[character.hair_color as keyof typeof HAIRGAMMA_MAPPING_2]
+            )
             .tint(HAIRCOLOR_MAPPING[character.hair_color as keyof typeof HAIRCOLOR_MAPPING])
             .toBuffer();
         eyebrowsObject.src = await sharp(eyebrowsObject.src)
-            .gamma(HAIRGAMMA_MAPPING_1[character.hair_color as keyof typeof HAIRGAMMA_MAPPING_1], HAIRGAMMA_MAPPING_2[character.hair_color as keyof typeof HAIRGAMMA_MAPPING_2])
+            .gamma(
+                HAIRGAMMA_MAPPING_1[character.hair_color as keyof typeof HAIRGAMMA_MAPPING_1],
+                HAIRGAMMA_MAPPING_2[character.hair_color as keyof typeof HAIRGAMMA_MAPPING_2]
+            )
             .tint(HAIRCOLOR_MAPPING[character.hair_color as keyof typeof HAIRCOLOR_MAPPING])
+            .toBuffer();
+    }
+
+    if (character.eye_color !== 1) {
+        const eyesObject = items.find((item: any) => item.itemType === "eyes");
+        eyesObject.src = await sharp(eyesObject.src)
+            .gamma(
+                EYEGAMMA_MAPPING_1[character.hair_color as keyof typeof EYEGAMMA_MAPPING_1],
+                EYEGAMMA_MAPPING_2[character.hair_color as keyof typeof EYEGAMMA_MAPPING_2]
+            )
+            .tint(EYECOLOR_MAPPING[character.eye_color as keyof typeof EYECOLOR_MAPPING])
             .toBuffer();
     }
 
@@ -71,6 +87,8 @@ export async function POST(req: NextRequest) {
     items.sort((a: any, b: any) => {
         return ITEM_Z_INDEX[a.itemType as zlayer] - ITEM_Z_INDEX[b.itemType as zlayer];
     });
+
+    console.log(items)
 
     await sharp({
         create: {

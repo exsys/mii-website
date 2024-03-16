@@ -195,6 +195,26 @@ export default function ItemSelection({ itemType }: Props) {
                             </div>
                         </div>
                     )}
+
+                    {itemType === "eyes" && (
+                        <div className="bg-black/20 border-2 border-black/30 py-1 px-3 mt-4 flex gap-5 items-center
+                        justify-center">
+                            <h3 className="text-xl">
+                                Eye Color
+                            </h3>
+                            <div className="flex gap-2 items-center">
+                                <div className="arrow-button !w-8 !h-8" onClick={() => prevItem("eye_color")}>
+                                    <img src="/icons/left-arrow.svg" alt="" className="w-full h-full" />
+                                </div>
+                                <div>
+                                    <img src={`/items/placeholder/colors/haircolor${character.eye_color}.svg`} alt="" />
+                                </div>
+                                <div className="arrow-button !w-8 !h-8" onClick={() => nextItem("eye_color")}>
+                                    <img src="/icons/right-arrow.svg" alt="" className="w-full h-full" />
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </>
             )}
         </div>
