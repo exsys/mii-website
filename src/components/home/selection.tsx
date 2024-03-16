@@ -9,39 +9,37 @@ export default function Selection({ selectGender }: Props) {
     const [currentSelection, setCurrentSelection] = useState<number>(0);
 
     return (
-        <>
+        <div className={`w-full h-full`}>
             {currentSelection === 0 && (
-                <>
-                    <div className="border-8 border-gray-300 rounded-3xl w-[200px] h-[200px] bg-[#CCFFE7] hover:scale-95"
+                <div className="absolute bottom-16 left-1/2 -translate-x-1/2 flex gap-20">
+                    <div className="hover:scale-95"
                         onClick={() => setCurrentSelection(1)}>
-                        <div className="flex h-full items-center justify-center">
-                            Create new Mii
+                        <div className="wii-button">
+                            New Mii
                         </div>
                     </div>
-                    <div className="border-8 border-gray-300 rounded-3xl w-[200px] h-[200px] bg-[#CCFFE7] hover:scale-95">
-                        <div className="flex h-full items-center justify-center">
+                    <div className="hover:scale-95">
+                        <div className="wii-button">
                             Load Mii
                         </div>
                     </div>
-                </>
+                </div>
             )}
 
             {currentSelection === 1 && (
-                <>
-                    <div className="border-8 border-gray-300 rounded-3xl w-[200px] h-[200px] bg-[#CCFFE7] hover:scale-95"
-                        onClick={() => selectGender("male")}>
-                        <div className="flex h-full items-center justify-center">
+                <div className="absolute bottom-16 left-1/2 -translate-x-1/2 flex gap-20">
+                    <div className="hover:scale-95" onClick={() => selectGender("male")}>
+                        <div className="wii-button">
                             Male
                         </div>
                     </div>
-                    <div className="border-8 border-gray-300 rounded-3xl w-[200px] h-[200px] bg-[#CCFFE7] hover:scale-95"
-                        onClick={() => selectGender("female")}>
-                        <div className="flex h-full items-center justify-center">
+                    <div className="hover:scale-95" onClick={() => selectGender("female")}>
+                        <div className="wii-button">
                             Female
                         </div>
                     </div>
-                </>
+                </div>
             )}
-        </>
+        </div>
     )
 }

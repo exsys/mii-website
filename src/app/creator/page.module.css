@@ -1,3 +1,10 @@
 .wii-cursor {
     cursor: url("/cursor/wii-cursor.cur"), auto;
 }
+
+.mii-background {
+    background-image: url("/images/miichannel.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}

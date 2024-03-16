@@ -10,7 +10,7 @@ export default function MiiCreator() {
     const [currentView, setCurrentView] = useState<string>("selection");
 
     const selectGender = (gender: string) => {
-        const char = {...character};
+        const char = { ...character };
         char.gender = gender;
         setCurrentView("creation");
         setCharacter(char);
@@ -18,13 +18,17 @@ export default function MiiCreator() {
 
     return (
         <div className={`h-full ${styles["wii-cursor"]}`}>
-            <div className="h-full flex justify-center items-center gap-10">
+            <div className="h-full relative">
                 {currentView === "selection" && (
-                    <Selection selectGender={selectGender} />
+                    <div className={`h-full ${styles["mii-background"]}`}>
+                        <Selection selectGender={selectGender} />
+                    </div>
                 )}
 
                 {currentView === "creation" && (
-                    <CharacterCreation />
+                    <div className="h-full bg-creator-background">
+                        <CharacterCreation />
+                    </div>
                 )}
             </div>
         </div>

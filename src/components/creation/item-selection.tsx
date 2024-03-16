@@ -182,7 +182,7 @@ export default function ItemSelection({ itemType, goToExtraSelection }: Props) {
                     <div className="flex gap-2 items-center mt-4">
                         {itemType === "hair" && (
                             <div className="bg-black/20 border-2 border-black/30 py-1 px-3 flex gap-5 items-center
-                        justify-center">
+                            justify-center">
                                 <h3 className="text-xl">
                                     Hair Color
                                 </h3>
@@ -201,8 +201,8 @@ export default function ItemSelection({ itemType, goToExtraSelection }: Props) {
                         )}
 
                         {itemType === "eyes" && (
-                            <div className="bg-black/20 border-2 border-black/30 py-1 px-3 mt-4 flex gap-5 items-center
-                        justify-center">
+                            <div className="bg-black/20 border-2 border-black/30 py-1 px-3 flex gap-5 items-center
+                            justify-center">
                                 <h3 className="text-xl">
                                     Eye Color
                                 </h3>
