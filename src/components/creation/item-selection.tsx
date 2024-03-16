@@ -32,6 +32,7 @@ export default function ItemSelection({ itemType }: Props) {
         }
 
         let newCharacter = { ...character };
+        newCharacter[item] += 1;
 
         // reset item id if it's out of bounds
         if (character.gender === "male") {
@@ -45,7 +46,6 @@ export default function ItemSelection({ itemType }: Props) {
             }
         }
 
-        newCharacter[item] += 1;
         setCharacter(newCharacter); // character component will pick up on the change and call the backend to generate the new image
     }
 
@@ -56,20 +56,20 @@ export default function ItemSelection({ itemType }: Props) {
         }
 
         let newCharacter = { ...character };
+        newCharacter[item] -= 1;
 
         // reset item id if it's out of bounds
         if (character.gender === "male") {
             if (newCharacter[item] < 1) {
-                newCharacter[item] = ITEMS_MALE[item as MaleItem].length - 1;
+                newCharacter[item] = ITEMS_MALE[item as MaleItem].length;
             }
         }
         if (character.gender === "female") {
             if (newCharacter[item] < 1) {
-                newCharacter[item] = ITEMS_FEMALE[item as FemaleItem].length - 1;
+                newCharacter[item] = ITEMS_FEMALE[item as FemaleItem].length;
             }
         }
 
-        newCharacter[item] -= 1;
         setCharacter(newCharacter); // character component will pick up on the change and call the backend to generate the new image
     }
 

@@ -15,6 +15,7 @@ export async function POST(req: NextRequest) {
     console.log(character)
 
     // TODO: handle color change
+    // TODO: positioning of non-face items
 
     let allItems: any;
     switch (character.gender) {
