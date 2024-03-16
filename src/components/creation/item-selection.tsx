@@ -5,6 +5,7 @@ import { useContext } from "react";
 
 type Props = {
     itemType: string;
+    goToExtraSelection: (stage: number) => void;
 }
 
 type MaleItem = keyof typeof ITEMS_MALE;
@@ -17,7 +18,7 @@ const TOTAL_COLORS = {
     shirt_color: 9
 };
 
-export default function ItemSelection({ itemType }: Props) {
+export default function ItemSelection({ itemType, goToExtraSelection }: Props) {
     const [character, setCharacter] = useContext(MiiCharacterContext);
 
     const changeItem = (item: any) => {
@@ -176,45 +177,52 @@ export default function ItemSelection({ itemType }: Props) {
                             </>
                         )}
                     </div>
-                    {itemType === "hair" && (
-                        <div className="bg-black/20 border-2 border-black/30 py-1 px-3 mt-4 flex gap-5 items-center
-                        justify-center">
-                            <h3 className="text-xl">
-                                Hair Color
-                            </h3>
-                            <div className="flex gap-2 items-center">
-                                <div className="arrow-button !w-8 !h-8" onClick={() => prevItem("hair_color")}>
-                                    <img src="/icons/left-arrow.svg" alt="" className="w-full h-full" />
-                                </div>
-                                <div>
-                                    <img src={`/items/placeholder/colors/haircolor${character.hair_color}.svg`} alt="" />
-                                </div>
-                                <div className="arrow-button !w-8 !h-8" onClick={() => nextItem("hair_color")}>
-                                    <img src="/icons/right-arrow.svg" alt="" className="w-full h-full" />
-                                </div>
-                            </div>
-                        </div>
-                    )}
 
-                    {itemType === "eyes" && (
-                        <div className="bg-black/20 border-2 border-black/30 py-1 px-3 mt-4 flex gap-5 items-center
+                    <div className="flex gap-2 items-center mt-4">
+                        {itemType === "hair" && (
+                            <div className="bg-black/20 border-2 border-black/30 py-1 px-3 flex gap-5 items-center
                         justify-center">
-                            <h3 className="text-xl">
-                                Eye Color
-                            </h3>
-                            <div className="flex gap-2 items-center">
-                                <div className="arrow-button !w-8 !h-8" onClick={() => prevItem("eye_color")}>
-                                    <img src="/icons/left-arrow.svg" alt="" className="w-full h-full" />
-                                </div>
-                                <div>
-                                    <img src={`/items/placeholder/colors/haircolor${character.eye_color}.svg`} alt="" />
-                                </div>
-                                <div className="arrow-button !w-8 !h-8" onClick={() => nextItem("eye_color")}>
-                                    <img src="/icons/right-arrow.svg" alt="" className="w-full h-full" />
+                                <h3 className="text-xl">
+                                    Hair Color
+                                </h3>
+                                <div className="flex gap-2 items-center">
+                                    <div className="arrow-button !w-8 !h-8" onClick={() => prevItem("hair_color")}>
+                                        <img src="/icons/left-arrow.svg" alt="" className="w-full h-full" />
+                                    </div>
+                                    <div>
+                                        <img src={`/items/placeholder/colors/haircolor${character.hair_color}.svg`} alt="" />
+                                    </div>
+                                    <div className="arrow-button !w-8 !h-8" onClick={() => nextItem("hair_color")}>
+                                        <img src="/icons/right-arrow.svg" alt="" className="w-full h-full" />
+                                    </div>
                                 </div>
                             </div>
+                        )}
+
+                        {itemType === "eyes" && (
+                            <div className="bg-black/20 border-2 border-black/30 py-1 px-3 mt-4 flex gap-5 items-center
+                        justify-center">
+                                <h3 className="text-xl">
+                                    Eye Color
+                                </h3>
+                                <div className="flex gap-2 items-center">
+                                    <div className="arrow-button !w-8 !h-8" onClick={() => prevItem("eye_color")}>
+                                        <img src="/icons/left-arrow.svg" alt="" className="w-full h-full" />
+                                    </div>
+                                    <div>
+                                        <img src={`/items/placeholder/colors/haircolor${character.eye_color}.svg`} alt="" />
+                                    </div>
+                                    <div className="arrow-button !w-8 !h-8" onClick={() => nextItem("eye_color")}>
+                                        <img src="/icons/right-arrow.svg" alt="" className="w-full h-full" />
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        <div onClick={() => goToExtraSelection(2)}>
+                            <img src="/icons/extra-selection.svg" alt="" />
                         </div>
-                    )}
+                    </div>
                 </>
             )}
         </div>
