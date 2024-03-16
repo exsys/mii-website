@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
 
     // iterate through each item type (like hair, eyes, etc)
     let items: any[] = [];
-    let ignoreList = ["beard", "hat"];
+    let ignoreList = ["beard"];
     for (let i = 0; i < Object.keys(character).length; i++) {
         const itemType = Object.keys(character)[i] as zlayer;
         const itemId: any = character[itemType];

@@ -88,7 +88,7 @@ export default function ItemSelection({ itemType, goToExtraSelection }: Props) {
     return (
         <div>
             {itemType === "face" ? (
-                <div className="border-4 border-gray-400">
+                <div className="border-4 border-gray-400 bg-black/20">
                     <div className="border-b-2 border-gray-400">
                         <h2 className="text-3xl px-2 pt-2">
                             Skin Color
@@ -158,7 +158,8 @@ export default function ItemSelection({ itemType, goToExtraSelection }: Props) {
                                         <span className="absolute top-0 left-1">
                                             {index + 1}
                                         </span>
-                                        <img src={item.placeholder} alt="" />
+                                        <img src={item.placeholder} alt=""
+                                            className={`${(itemType === "hat" || itemType === "accessory") && "h-full"}`} />
                                     </div>
                                 ))}
                             </>

@@ -16,4 +16,5 @@ export interface MiiCharacter {
     beard: number;
     hat: number;
     outfit: number;
+    accessory: number;
 }

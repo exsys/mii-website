@@ -7,7 +7,7 @@ type Props = {
 
 export default function ItemTypeSelection({ selectedItemType, setSelectedItemType }: Props) {
     return (
-        <div className="grid grid-cols-7 text-center">
+        <div className="grid grid-cols-9 text-center">
             <div className={`item-type-button ${selectedItemType === "face" && "active"}`}
                 onClick={() => setSelectedItemType("face")}>
                 <img src={`/items/placeholder/item-type/type-face-1.svg`} alt="" />
@@ -35,6 +35,14 @@ export default function ItemTypeSelection({ selectedItemType, setSelectedItemTyp
             <div className={`item-type-button ${selectedItemType === "glasses" && "active"}`}
                 onClick={() => setSelectedItemType("glasses")}>
                 <img src={`/items/placeholder/item-type/type-glasses-1.svg`} alt="" />
+            </div>
+            <div className={`item-type-button ${selectedItemType === "hat" && "active"}`}
+                onClick={() => setSelectedItemType("hat")}>
+                <img src={`/items/placeholder/item-type/type-hat-1.svg`} alt="" />
+            </div>
+            <div className={`item-type-button ${selectedItemType === "accessory" && "active"}`}
+                onClick={() => setSelectedItemType("accessory")}>
+                <img src={`/items/placeholder/item-type/type-accessory-1.svg`} alt="" />
             </div>
         </div>
     )
