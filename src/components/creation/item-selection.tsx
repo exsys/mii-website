@@ -1,7 +1,6 @@
 "use client";
 import { ITEMS_MALE, ITEMS_FEMALE } from "@/assets/items"
 import { MiiCharacterContext } from "@/providers/character-provider";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { useContext, useEffect, useState } from "react";
 
 type Props = {
@@ -13,13 +12,6 @@ type FemaleItem = keyof typeof ITEMS_FEMALE;
 
 export default function ItemSelection({ itemType }: Props) {
     const [character, setCharacter] = useContext(MiiCharacterContext);
-    const [currentItems, setCurrentItems] = useState<any[]>([]);
-
-    useEffect(() => {
-        if (character) {
-            setCurrentItems(character);
-        }
-    }, []);
 
     const changeItem = (item: any) => {
         let newCharacter = { ...character };
@@ -107,7 +99,7 @@ export default function ItemSelection({ itemType }: Props) {
                                     <img src="/icons/left-arrow.svg" alt="" className="w-full h-full" />
                                 </div>
                                 <div>
-                                    <img src="/images/placeholder/face-smile.svg" alt="" />
+                                    <img src="/items/placeholder/face-smile.svg" alt="" />
                                 </div>
                                 <div className="arrow-button" onClick={() => nextItem("head")}>
                                     <img src="/icons/right-arrow.svg" alt="" className="w-full h-full" />
@@ -118,7 +110,7 @@ export default function ItemSelection({ itemType }: Props) {
                                     <img src="/icons/left-arrow.svg" alt="" className="w-full h-full" />
                                 </div>
                                 <div>
-                                    <img src="/images/placeholder/makeup.svg" alt="" />
+                                    <img src="/items/placeholder/makeup.svg" alt="" />
                                 </div>
                                 <div className="arrow-button" onClick={() => nextItem("makeup")}>
                                     <img src="/icons/right-arrow.svg" alt="" className="w-full h-full" />
@@ -129,7 +121,7 @@ export default function ItemSelection({ itemType }: Props) {
                                     <img src="/icons/left-arrow.svg" alt="" className="w-full h-full" />
                                 </div>
                                 <div>
-                                    <img src="/images/placeholder/wrinkles.svg" alt="" />
+                                    <img src="/items/placeholder/wrinkles.svg" alt="" />
                                 </div>
                                 <div className="arrow-button" onClick={() => nextItem("wrinkles")}>
                                     <img src="/icons/right-arrow.svg" alt="" className="w-full h-full" />
