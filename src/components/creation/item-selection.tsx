@@ -172,7 +172,8 @@ export default function ItemSelection({ itemType, goToExtraSelection }: Props) {
                                         <span className="absolute top-0 left-1">
                                             {index + 1}
                                         </span>
-                                        <img src={item.placeholder} alt="" />
+                                        <img src={item.placeholder} alt=""
+                                            className={`${(itemType === "hat" || itemType === "accessory") && "h-full"}`} />
                                     </div>
                                 ))}
                             </>
