@@ -9,6 +9,7 @@ export default function Character() {
     const [character, setCharacter] = useContext(MiiCharacterContext);
     const [imageUrl, setImageUrl] = useState<string>("");
 
+    /** this will pick up on the changes of the character and update the image on each change */
     useEffect(() => {
         if (character) {
             getGeneratedCharacterImage(character);

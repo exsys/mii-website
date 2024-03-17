@@ -19,9 +19,16 @@ export default function CharacterCreation() {
                                 <ItemTypeSelection selectedItemType={selectedItemType} setSelectedItemType={setSelectedItemType} />
                             </div>
 
-                            <div className="flex gap-5 justify-between w-full">
+                            <div className="flex gap-5 justify-between w-full relative">
                                 <Character />
                                 <ItemSelection itemType={selectedItemType} />
+                                <div className="absolute bottom-0 left-[36px] bg-black/40 p-2 border-2 border-black/30 rounded-xl
+                                min-w-[180px] text-center hover:scale-95 hover:bg-black/50"
+                                onClick={() => setCurrentStage(2)}>
+                                    <h3 className="text-white text-2xl drop-shadow-lg">
+                                        Create
+                                    </h3>
+                                </div>
                             </div>
                         </>
                     )}
