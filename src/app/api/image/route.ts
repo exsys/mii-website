@@ -4,7 +4,10 @@ import sharp from "sharp";
 import fs from "fs";
 import path from "path";
 import { ITEMS_FEMALE, ITEMS_MALE } from "@/assets/items";
-import { EYECOLOR_MAPPING, EYEGAMMA_MAPPING_1, EYEGAMMA_MAPPING_2, HAIRCOLOR_MAPPING, HAIRGAMMA_MAPPING_1, HAIRGAMMA_MAPPING_2 } from "@/assets/mappings";
+import { 
+    EYECOLOR_MAPPING, EYEGAMMA_MAPPING_1, EYEGAMMA_MAPPING_2,
+    HAIRCOLOR_MAPPING, HAIRGAMMA_MAPPING_1, HAIRGAMMA_MAPPING_2, SHIRTCOLOR_MAPPING, SHIRTGAMMA_MAPPING_1, SHIRTGAMMA_MAPPING_2,
+} from "@/assets/mappings";
 
 type zlayer = keyof typeof ITEM_Z_INDEX;
 const imageWidth = 240;
@@ -76,6 +79,17 @@ export async function POST(req: NextRequest) {
                 EYEGAMMA_MAPPING_2[character.eye_color as keyof typeof EYEGAMMA_MAPPING_2]
             )
             .tint(EYECOLOR_MAPPING[character.eye_color as keyof typeof EYECOLOR_MAPPING])
+            .toBuffer();
+    }
+
+    if (character.outfit_color !== 1) {
+        const outfitObject = items.find((item: any) => item.itemType === "outfit");
+        outfitObject.src = await sharp(outfitObject.src)
+            .gamma(
+                SHIRTGAMMA_MAPPING_1[character.outfit_color as keyof typeof SHIRTGAMMA_MAPPING_1],
+                SHIRTGAMMA_MAPPING_2[character.outfit_color as keyof typeof SHIRTGAMMA_MAPPING_2]
+            )
+            .tint(SHIRTCOLOR_MAPPING[character.outfit_color as keyof typeof SHIRTCOLOR_MAPPING])
             .toBuffer();
     }
 

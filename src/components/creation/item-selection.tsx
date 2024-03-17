@@ -5,7 +5,6 @@ import { useContext } from "react";
 
 type Props = {
     itemType: string;
-    goToExtraSelection: (stage: number) => void;
 }
 
 type MaleItem = keyof typeof ITEMS_MALE;
@@ -15,10 +14,10 @@ const TOTAL_COLORS = {
     skin_color: 4,
     hair_color: 7,
     eye_color: 7,
-    shirt_color: 9
+    outfit_color: 9
 };
 
-export default function ItemSelection({ itemType, goToExtraSelection }: Props) {
+export default function ItemSelection({ itemType }: Props) {
     const [character, setCharacter] = useContext(MiiCharacterContext);
 
     const changeItem = (item: any) => {
@@ -89,26 +88,44 @@ export default function ItemSelection({ itemType, goToExtraSelection }: Props) {
         <div>
             {itemType === "face" ? (
                 <div className="border-4 border-gray-400 bg-black/20">
-                    <div className="border-b-2 border-gray-400">
-                        <h2 className="text-3xl px-2 pt-2">
-                            Skin Color
-                        </h2>
-                        <div className="px-2 pb-2">
-                            <div className="flex items-center justify-center gap-2">
-                                <div className="arrow-button" onClick={() => prevItem("skin_color")}>
-                                    <img src="/icons/left-arrow.svg" alt="" className="w-full h-full" />
+                    <div className="border-b-2 border-gray-400 py-1.5 px-8">
+                        <div className="flex flex-col gap-2">
+                            <div>
+                                <h2 className="text-2xl mb-1">
+                                    Skin Color
+                                </h2>
+                                <div className="w-3/4 mx-auto flex items-center justify-between gap-2">
+                                    <div className="arrow-button" onClick={() => prevItem("skin_color")}>
+                                        <img src="/icons/left-arrow.svg" alt="" className="w-full h-full" />
+                                    </div>
+                                    <div>
+                                        <img src="/items/skin-color.png" alt="" />
+                                    </div>
+                                    <div className="arrow-button" onClick={() => nextItem("skin_color")}>
+                                        <img src="/icons/right-arrow.svg" alt="" className="w-full h-full" />
+                                    </div>
                                 </div>
-                                <div>
-                                    <img src="/items/skin-color.png" alt="" className="scale-75" />
-                                </div>
-                                <div className="arrow-button" onClick={() => nextItem("skin_color")}>
-                                    <img src="/icons/right-arrow.svg" alt="" className="w-full h-full" />
+                            </div>
+                            <div>
+                                <h2 className="text-2xl mb-1">
+                                    Shirt Color
+                                </h2>
+                                <div className="w-3/4 mx-auto flex items-center justify-between gap-2">
+                                    <div className="arrow-button" onClick={() => prevItem("outfit_color")}>
+                                        <img src="/icons/left-arrow.svg" alt="" className="w-full h-full" />
+                                    </div>
+                                    <div>
+                                        <img src={`/items/placeholder/colors/outfitcolor${character.outfit_color}.svg`} alt="" />
+                                    </div>
+                                    <div className="arrow-button" onClick={() => nextItem("outfit_color")}>
+                                        <img src="/icons/right-arrow.svg" alt="" className="w-full h-full" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="p-2">
-                        <h2 className="text-3xl">
+                    <div className="py-1.5 px-8">
+                        <h2 className="text-2xl mb-1">
                             Facial Features
                         </h2>
                         <div className="flex flex-col gap-3">
@@ -117,7 +134,7 @@ export default function ItemSelection({ itemType, goToExtraSelection }: Props) {
                                     <img src="/icons/left-arrow.svg" alt="" className="w-full h-full" />
                                 </div>
                                 <div>
-                                    <img src="/items/placeholder/face-smile.svg" alt="" />
+                                    <img src="/items/placeholder/face-smile.svg" alt="" className="w-[50px] h-[45px]" />
                                 </div>
                                 <div className="arrow-button" onClick={() => nextItem("head")}>
                                     <img src="/icons/right-arrow.svg" alt="" className="w-full h-full" />
@@ -128,7 +145,7 @@ export default function ItemSelection({ itemType, goToExtraSelection }: Props) {
                                     <img src="/icons/left-arrow.svg" alt="" className="w-full h-full" />
                                 </div>
                                 <div>
-                                    <img src="/items/placeholder/makeup.svg" alt="" />
+                                    <img src="/items/placeholder/makeup.svg" alt="" className="w-[50px] h-[45px]" />
                                 </div>
                                 <div className="arrow-button" onClick={() => nextItem("makeup")}>
                                     <img src="/icons/right-arrow.svg" alt="" className="w-full h-full" />
@@ -139,7 +156,7 @@ export default function ItemSelection({ itemType, goToExtraSelection }: Props) {
                                     <img src="/icons/left-arrow.svg" alt="" className="w-full h-full" />
                                 </div>
                                 <div>
-                                    <img src="/items/placeholder/wrinkles.svg" alt="" />
+                                    <img src="/items/placeholder/wrinkles.svg" alt="" className="w-[50px] h-[45px]" />
                                 </div>
                                 <div className="arrow-button" onClick={() => nextItem("wrinkles")}>
                                     <img src="/icons/right-arrow.svg" alt="" className="w-full h-full" />
@@ -182,7 +199,7 @@ export default function ItemSelection({ itemType, goToExtraSelection }: Props) {
 
                     <div className="flex gap-2 items-center mt-4">
                         {itemType === "hair" && (
-                            <div className="bg-black/20 border-2 border-black/30 py-1 px-3 flex gap-5 items-center
+                            <div className="w-full bg-black/20 border-2 border-black/30 py-1 px-3 flex gap-5 items-center
                             justify-center">
                                 <h3 className="text-xl">
                                     Hair Color
@@ -202,7 +219,7 @@ export default function ItemSelection({ itemType, goToExtraSelection }: Props) {
                         )}
 
                         {itemType === "eyes" && (
-                            <div className="bg-black/20 border-2 border-black/30 py-1 px-3 flex gap-5 items-center
+                            <div className="w-full bg-black/20 border-2 border-black/30 py-1 px-3 flex gap-5 items-center
                             justify-center">
                                 <h3 className="text-xl">
                                     Eye Color
@@ -220,10 +237,6 @@ export default function ItemSelection({ itemType, goToExtraSelection }: Props) {
                                 </div>
                             </div>
                         )}
-
-                        <div onClick={() => goToExtraSelection(2)}>
-                            <img src="/icons/extra-selection.svg" alt="" />
-                        </div>
                     </div>
                 </>
             )}

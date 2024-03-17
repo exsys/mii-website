@@ -13,7 +13,7 @@ body, html {
   }
 
   .arrow-button {
-    @apply w-10 h-10 border-2 border-black rounded-lg hover:scale-95;
+    @apply w-9 h-9 border-2 border-black rounded-lg hover:scale-95;
     @apply bg-gradient-to-b from-[#B6B6B6] to-[#FCFCFC];
   }
 
@@ -23,7 +23,7 @@ body, html {
   }
 
   .item-type-button {
-    @apply border-2 border-green-700 py-2 px-3 flex items-center justify-center;
+    @apply border-2 border-green-700 py-2 px-3 flex items-center justify-center w-[66px] h-[53px];
     @apply bg-gradient-to-tr from-[#86CD63] to-[#C9D8F5];
   }
 

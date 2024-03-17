@@ -21,7 +21,7 @@ export default function CharacterCreation() {
 
                             <div className="flex gap-5 justify-between w-full">
                                 <Character />
-                                <ItemSelection itemType={selectedItemType} goToExtraSelection={setCurrentStage} />
+                                <ItemSelection itemType={selectedItemType} />
                             </div>
                         </>
                     )}
