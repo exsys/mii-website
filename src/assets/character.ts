@@ -33,7 +33,7 @@ export const ITEM_Z_INDEX = {
     nose: 8,
     beard: 9,
     glasses: 10,
-    accessory: 11,
-    hair: 12,
-    hat: 13,
+    hair: 11,
+    hat: 12,
+    accessory: 13,
 };

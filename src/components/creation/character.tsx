@@ -33,7 +33,7 @@ export default function Character() {
 
     return (
         <div>
-            <img src={imageUrl} alt="" />
+            <img src={imageUrl} alt="" id="mii-character" />
         </div>
     )
 }

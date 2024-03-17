@@ -21,43 +21,43 @@
 }
 
 .mii-background-1 {
-    background: url('/items/background/background1.svg');
+    background: url('/items/background/background1.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .mii-background-2 {
-    background: url('/items/background/background2.svg');
+    background: url('/items/background/background2.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .mii-background-3 {
-    background: url('/items/background/background3.svg');
+    background: url('/items/background/background3.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .mii-background-4 {
-    background: url('/items/background/background4.svg');
+    background: url('/items/background/background4.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .mii-background-5 {
-    background: url('/items/background/background5.svg');
+    background: url('/items/background/background5.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .mii-background-6 {
-    background: url('/items/background/background6.svg');
+    background: url('/items/background/background6.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .mii-background-7 {
-    background: url('/items/background/background7.svg');
+    background: url('/items/background/background7.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -97,4 +97,11 @@
     background: url('/items/background/background13.png');
     background-size: cover;
     background-repeat: no-repeat;
+}
+
+.mii-background-14 {
+    background: url('/items/background/background14.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 80% 50%;
 }

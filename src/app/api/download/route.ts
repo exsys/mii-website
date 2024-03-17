@@ -1,22 +1,22 @@
-import { ITEM_Z_INDEX } from "@/assets/character";
 import { NextRequest, NextResponse } from "next/server";
 import sharp from "sharp";
 import fs from "fs";
 import path from "path";
-import { ITEMS_FEMALE, ITEMS_MALE } from "@/assets/items";
-import {
-    EYECOLOR_MAPPING, EYEGAMMA_MAPPING_1, EYEGAMMA_MAPPING_2,
-    HAIRCOLOR_MAPPING, HAIRGAMMA_MAPPING_1, HAIRGAMMA_MAPPING_2, SHIRTCOLOR_MAPPING, SHIRTGAMMA_MAPPING_1, SHIRTGAMMA_MAPPING_2,
-} from "@/assets/mappings";
+import { ITEMS_MALE, ITEMS_FEMALE } from "@/assets/items";
+import { ITEM_Z_INDEX } from "@/assets/character";
+import { HAIRGAMMA_MAPPING_1, HAIRGAMMA_MAPPING_2, HAIRCOLOR_MAPPING, EYEGAMMA_MAPPING_1, EYEGAMMA_MAPPING_2, EYECOLOR_MAPPING, SHIRTGAMMA_MAPPING_1, SHIRTGAMMA_MAPPING_2, SHIRTCOLOR_MAPPING } from "@/assets/mappings";
 
+const charImageWidth = 240;
+const charImageHeight = 350;
+const imageWidth = 500;
+const imageHeight = 350;
+const imagePath = path.join(process.cwd(), "/public/images/miionsolana.png");
 type zlayer = keyof typeof ITEM_Z_INDEX;
-const imageWidth = 240;
-const imageHeight = 380;
-const imagePath = path.join(process.cwd(), "/public/images/character.png");
 
 export async function POST(req: NextRequest) {
     try {
-        const character = await req.json();
+        const body = await req.json();
+        const { character, background } = body;
 
         let allItems: any;
         switch (character.gender) {
@@ -33,7 +33,20 @@ export async function POST(req: NextRequest) {
 
         delete character["gender"];
 
-        // iterate through each item type (like hair, eyes, etc)
+        let result: any[] = [];
+
+        // TODO: create mapping for images
+        if (background !== 0) {
+            const backgroundSrc = path.join(process.cwd(), `/public/items/background/background${background}.png`);
+            const backgroundComposite = {
+                src: await sharp(backgroundSrc).resize({ width: imageWidth, height: imageHeight }).toBuffer(),
+                position: { left: 0, top: 0 },
+                width: imageWidth,
+                height: imageHeight,
+            };
+            result.push(backgroundComposite);
+        }
+
         let items: any[] = [];
         let ignoreList = ["beard"];
         for (let i = 0; i < Object.keys(character).length; i++) {
@@ -99,10 +112,10 @@ export async function POST(req: NextRequest) {
             return ITEM_Z_INDEX[a.itemType as zlayer] - ITEM_Z_INDEX[b.itemType as zlayer];
         });
 
-        const imageBuffer = await sharp({
+        const characterBuffer = await sharp({
             create: {
-                width: imageWidth,
-                height: imageHeight,
+                width: charImageWidth,
+                height: charImageHeight,
                 channels: 4,
                 background: { r: 0, g: 0, b: 0, alpha: 0 }
             }
@@ -111,14 +124,46 @@ export async function POST(req: NextRequest) {
                 input: item.src,
                 left: item.position.left,
                 top: item.position.top,
+                width: charImageWidth,
+                height: charImageHeight,
+            })))
+            .toFormat("png", { quality: 100 })
+            .toBuffer();
+
+        const characterComposite = {
+            src: characterBuffer,
+            position: {
+                left: imageWidth / 2 - charImageWidth / 2,
+                top: 0,
+            },
+            width: imageWidth,
+            height: imageHeight,
+        };
+        result.push(characterComposite);
+
+        const imageBuffer = await sharp({
+            create: {
                 width: imageWidth,
                 height: imageHeight,
-            })))
+                channels: 4,
+                background: { r: 0, g: 0, b: 0, alpha: 0 }
+            }
+        })
+            .composite(
+                result.map((buffer: any, index: number) => ({
+                    input: buffer.src,
+                    left: buffer.position.left,
+                    top: buffer.position.top,
+                    width: imageWidth,
+                    height: imageHeight,
+                }))
+            )
             .toFormat("png", { quality: 100 })
             .toBuffer();
 
         return new NextResponse(imageBuffer, { headers: { 'Content-Type': 'image/png' } });
     } catch (error) {
+        console.log(error)
         return new NextResponse(null, { status: 500 });
     }
-}
+};

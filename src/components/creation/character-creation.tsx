@@ -1,19 +1,22 @@
 "use client";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Character from "./character";
 import ItemSelection from "./item-selection";
 import ItemTypeSelection from "./item-type-selection";
 import styles from "./page.module.css";
 import { ArrowDownTrayIcon, FolderArrowDownIcon } from "@heroicons/react/24/outline";
+import { MiiCharacterContext } from "@/providers/character-provider";
 
-const BACKGROUNDS = 13;
+const BACKGROUNDS = 14;
 
 export default function CharacterCreation() {
+    const [character, setCharacter] = useContext(MiiCharacterContext);
     const [selectedItemType, setSelectedItemType] = useState<string>("face");
     const [currentStage, setCurrentStage] = useState<number>(1);
     const [selectedBackground, setSelectedBackground] = useState<number>(0);
+    const [downloadLink, setDownloadLink] = useState<string>("");
 
-    const nextBackground = () => {
+    const nextBackground = async () => {
         const nextId = selectedBackground + 1;
         if (nextId > BACKGROUNDS) {
             setSelectedBackground(0);
@@ -22,7 +25,7 @@ export default function CharacterCreation() {
         setSelectedBackground(nextId);
     };
 
-    const prevBackground = () => {
+    const prevBackground = async () => {
         const prevId = selectedBackground - 1;
         if (prevId < 0) {
             setSelectedBackground(BACKGROUNDS);
@@ -30,6 +33,31 @@ export default function CharacterCreation() {
         }
         setSelectedBackground(prevId);
     };
+
+    const downloadImage = async () => {
+        const charImgSrc = document.getElementById("mii-character")?.getAttribute("src");
+        if (charImgSrc) {
+            const body = {
+                character: character,
+                background: selectedBackground,
+            }
+            const res = await fetch("/api/download", {
+                method: "POST",
+                body: JSON.stringify(body),
+                headers: { "Content-Type": "application/json" },
+            });
+            const blob = await res.blob();
+            const objectURL = URL.createObjectURL(blob);
+            setDownloadLink(objectURL);
+        }
+    };
+
+    useEffect(() => {
+        const downloadElement = document.getElementById("download-link");
+        if (downloadElement) {
+            downloadElement.click();
+        }
+    }, [downloadLink]);
 
     return (
         <div className={`h-full flex justify-center items-center gap-10`}>
@@ -79,18 +107,19 @@ export default function CharacterCreation() {
                             </div>
 
                             <div className="flex gap-10 mt-8">
-                                <div className="wii-button flex gap-3 w-[280px]">
+                                <button className="wii-button flex gap-3 w-[280px]" onClick={() => downloadImage()}>
                                     <ArrowDownTrayIcon className="w-6 h-6" />
                                     <span>
                                         Download Image
                                     </span>
-                                </div>
-                                <div className="wii-button flex gap-3 w-[280px]">
+                                </button>
+                                <button className="wii-button flex gap-3 w-[280px]">
                                     <FolderArrowDownIcon className="w-6 h-6" />
                                     <span>
                                         Save Mii
                                     </span>
-                                </div>
+                                </button>
+                                <a download={"miionsolana.png"} href={downloadLink} className="hidden" id="download-link"></a>
                             </div>
                         </>
                     )}

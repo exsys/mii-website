@@ -84,3 +84,7 @@ export const SHIRTGAMMA_MAPPING_2 = {
     8: 1,
     9: 1.6,
 };
+
+export const BACKGROUND_POSITION_MAPPING = {
+    14: { left: 0, top: 0 },
+};
