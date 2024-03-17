@@ -85,6 +85,20 @@ export const SHIRTGAMMA_MAPPING_2 = {
     9: 1.6,
 };
 
+// TODO: finish background positioning
 export const BACKGROUND_POSITION_MAPPING = {
+    1: { left: 0, top: 0 },
+    2: { left: 0, top: 0 },
+    3: { left: 0, top: 0 },
+    4: { left: 0, top: 0 },
+    5: { left: 0, top: 0 },
+    6: { left: 0, top: 0 },
+    7: { left: 0, top: 0 },
+    8: { left: 0, top: 0 },
+    9: { left: 0, top: 0 },
+    10: { left: 0, top: 0 },
+    11: { left: 0, top: 0 },
+    12: { left: 0, top: 0 },
+    13: { left: 0, top: 0 },
     14: { left: 0, top: 0 },
 };

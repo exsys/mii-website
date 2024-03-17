@@ -35,7 +35,6 @@ export async function POST(req: NextRequest) {
 
         let result: any[] = [];
 
-        // TODO: create mapping for images
         if (background !== 0) {
             const backgroundSrc = path.join(process.cwd(), `/public/items/background/background${background}.png`);
             const backgroundComposite = {
