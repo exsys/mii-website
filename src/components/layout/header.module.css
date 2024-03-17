@@ -1,0 +1,40 @@
+.menu-icon-line {
+    width: 2.25rem;
+    height: 0.125rem;
+    background-color: black;
+    border-radius: 0.25rem;
+    transition: all 0.3s;
+}
+
+.menu-icon-line:not(:first-child) {
+    margin-top: 0.5rem;
+}
+
+.line1 {
+    transform: translate(0, 11px) rotate(-45deg);
+}
+
+.line2 {
+    opacity: 0;
+}
+
+.line3 {
+    transform: translate(0, -9px) rotate(45deg);
+}
+
+.menu {
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+    transition: all 150ms linear;
+    will-change: transform;
+    opacity: 0;
+    padding: 7rem 3rem;
+}
+
+.active {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    transition: all 150ms linear;
+    will-change: transform;
+    opacity: 1;
+}
