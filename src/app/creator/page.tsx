@@ -20,7 +20,7 @@ export default function MiiCreator() {
         <div className={`h-full ${styles["wii-cursor"]}`}>
             <div className="h-full relative">
                 {currentView === "selection" && (
-                    <div className={`h-full ${styles["mii-background"]}`}>
+                    <div className={`h-full ${styles["mii-background"]}`} data-aos="zoom-out">
                         <Selection selectGender={selectGender} />
                     </div>
                 )}
