@@ -4,12 +4,15 @@ import Character from "./character";
 import ItemSelection from "./item-selection";
 import ItemTypeSelection from "./item-type-selection";
 import styles from "./page.module.css";
-import { ArrowDownTrayIcon, FolderArrowDownIcon } from "@heroicons/react/24/outline";
+import { ArrowDownTrayIcon, ArrowLeftIcon, FolderArrowDownIcon } from "@heroicons/react/24/outline";
 import { MiiCharacterContext } from "@/providers/character-provider";
 
+type Props = {
+    setCurrentView: (view: string) => void;
+}
 const BACKGROUNDS = 14;
 
-export default function CharacterCreation() {
+export default function CharacterCreation({ setCurrentView }: Props) {
     const [character, setCharacter] = useContext(MiiCharacterContext);
     const [selectedItemType, setSelectedItemType] = useState<string>("face");
     const [currentStage, setCurrentStage] = useState<number>(1);
@@ -65,6 +68,14 @@ export default function CharacterCreation() {
                 <div className="h-full flex justify-center items-center flex-col gap-10">
                     {currentStage === 1 && (
                         <div>
+                            <div className="mb-2 flex gap-2 items-center w-fit bg-black/20 py-1 px-2 border border-black/30
+                            hover:bg-black/30" onClick={() => setCurrentView("selection")}>
+                                <ArrowLeftIcon className="w-8 h-8 stroke-2" />
+                                <h3 className="text-lg">
+                                    Return
+                                </h3>
+                            </div>
+
                             <div className="mb-10">
                                 <ItemTypeSelection selectedItemType={selectedItemType} setSelectedItemType={setSelectedItemType} />
                             </div>
@@ -84,7 +95,14 @@ export default function CharacterCreation() {
                     )}
 
                     {currentStage === 2 && (
-                        <>
+                        <div>
+                            <div className="ml-24 mb-2 flex gap-2 items-center w-fit py-1 px-2 border 
+                            bg-black/20 border-black/30 hover:bg-black/30" onClick={() => setCurrentStage(1)}>
+                                <ArrowLeftIcon className="w-8 h-8 stroke-2" />
+                                <h3 className="text-lg">
+                                    Return
+                                </h3>
+                            </div>
                             <div className="flex gap-10 justify-center w-full">
                                 <div className={`flex items-center`} onClick={() => prevBackground()}>
                                     <div className={`${styles["switch-button-wrapper"]}`}>
@@ -106,7 +124,7 @@ export default function CharacterCreation() {
                                 </div>
                             </div>
 
-                            <div className="flex gap-10 mt-8">
+                            <div className="flex gap-10 mt-10 justify-center">
                                 <button className="wii-button flex gap-3 w-[280px]" onClick={() => downloadImage()}>
                                     <ArrowDownTrayIcon className="w-6 h-6" />
                                     <span>
@@ -121,7 +139,7 @@ export default function CharacterCreation() {
                                 </button>
                                 <a download={"miionsolana.png"} href={downloadLink} className="hidden" id="download-link"></a>
                             </div>
-                        </>
+                        </div>
                     )}
                 </div>
             </div>

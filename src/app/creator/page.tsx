@@ -27,7 +27,7 @@ export default function MiiCreator() {
 
                 {currentView === "creation" && (
                     <div className="h-full bg-creator-background">
-                        <CharacterCreation />
+                        <CharacterCreation setCurrentView={setCurrentView} />
                     </div>
                 )}
             </div>
