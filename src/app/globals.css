@@ -2,7 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-body, html {
+body,
+html {
   height: 100%;
   overflow-x: hidden;
 }
@@ -41,5 +42,12 @@ body, html {
 
   .wii-button:hover {
     transform: scale(0.95);
+  }
+
+  .mii-background {
+    background-image: url("/images/hero-bg.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
   }
 }
