@@ -33,8 +33,8 @@ body, html {
   }
 
   .wii-button {
-    @apply py-4 px-2 w-[260px] border-2 border-[#5DB0CF] rounded-full flex items-center justify-center text-2xl font-medium;
+    @apply py-4 px-4 min-w-[260px] border-2 border-[#5DB0CF] rounded-full flex items-center justify-center text-2xl font-medium;
     @apply bg-gradient-to-t from-[#B6B6B6] to-[#FCFCFC];
-    @apply shadow-md;
+    @apply shadow-md hover:scale-95;
   }
 }

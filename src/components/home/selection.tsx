@@ -12,13 +12,12 @@ export default function Selection({ selectGender }: Props) {
         <div className={`w-full h-full`}>
             {currentSelection === 0 && (
                 <div className="absolute bottom-16 left-1/2 -translate-x-1/2 flex gap-20">
-                    <div className="hover:scale-95"
-                        onClick={() => setCurrentSelection(1)}>
+                    <div onClick={() => setCurrentSelection(1)}>
                         <div className="wii-button">
                             New Mii
                         </div>
                     </div>
-                    <div className="hover:scale-95">
+                    <div>
                         <div className="wii-button">
                             Load Mii
                         </div>

@@ -1,0 +1,21 @@
+.switch-button-right {
+    clip-path: polygon(50% 0, 100% 50%, 50% 100%, 60% 50%);
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(to bottom, #93DFEF, #BAF5FD 40%, #BAF5FD 60%, #93DFEF 100%);
+}
+
+.switch-button-left {
+    clip-path: polygon(0 50%, 50% 0, 40% 50%, 50% 100%);
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(to bottom, #93DFEF, #BAF5FD 40%, #BAF5FD 60%, #93DFEF 100%);
+}
+
+.switch-button-wrapper {
+    filter: drop-shadow(0 0 1px #20424E);
+}
+
+.switch-button-wrapper:hover {
+    filter: drop-shadow(0 0 2px #20424E);
+}
