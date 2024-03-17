@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
 
         if (background !== 0) {
             //const backgroundSrc = path.join(__dirname, `../../../public/items/background/background${background}.png`);
-            const backgroundSrc = `/items/background/background${background}.png`
+            const backgroundSrc = `/public/items/background/background${background}.png`
             const backgroundComposite = {
                 src: await sharp(backgroundSrc).resize({ width: imageWidth, height: imageHeight }).toBuffer(),
                 position: { left: 0, top: 0 },
@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
             const item: any = allItems[itemType].find((item: any) => item.id === itemId); // item object of each item type
             const copy = { ...item }; // copy needed because else nextjs will use the reference when multiple calls occur. it will just add to the string instead of replace it.
             //copy.src = path.join(__dirname, `../../../public${item.src}`);
-            copy.src = `${item.src}`;
+            copy.src = `/public${item.src}`;
             items.push({ ...copy });
         }
 
