@@ -11,9 +11,6 @@ const config: Config = {
       backgroundImage: {
         "creator-background": "linear-gradient(to bottom, #CCFFFF, #FEFFFF)",
       },
-      colors: {
-        "wii-blue": "#5DB0CF",
-      },
     },
   },
   plugins: [],
