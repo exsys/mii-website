@@ -6,26 +6,38 @@ import ItemTypeSelection from "./item-type-selection";
 import styles from "./page.module.css";
 import { ArrowDownTrayIcon, FolderArrowDownIcon } from "@heroicons/react/24/outline";
 
+const BACKGROUNDS = 13;
+
 export default function CharacterCreation() {
     const [selectedItemType, setSelectedItemType] = useState<string>("face");
     const [currentStage, setCurrentStage] = useState<number>(1);
     const [selectedBackground, setSelectedBackground] = useState<number>(0);
 
     const nextBackground = () => {
-        
+        const nextId = selectedBackground + 1;
+        if (nextId > BACKGROUNDS) {
+            setSelectedBackground(0);
+            return;
+        }
+        setSelectedBackground(nextId);
     };
 
     const prevBackground = () => {
-
+        const prevId = selectedBackground - 1;
+        if (prevId < 0) {
+            setSelectedBackground(BACKGROUNDS);
+            return;
+        }
+        setSelectedBackground(prevId);
     };
 
     return (
-        <div className="h-full flex justify-center items-center gap-10">
-            <div className="h-full w-full max-w-[600px]">
+        <div className={`h-full flex justify-center items-center gap-10`}>
+            <div className="h-full w-full">
                 <div className="h-full flex justify-center items-center flex-col gap-10">
                     {currentStage === 1 && (
-                        <>
-                            <div>
+                        <div>
+                            <div className="mb-10">
                                 <ItemTypeSelection selectedItemType={selectedItemType} setSelectedItemType={setSelectedItemType} />
                             </div>
 
@@ -40,19 +52,26 @@ export default function CharacterCreation() {
                                     </h3>
                                 </div>
                             </div>
-                        </>
+                        </div>
                     )}
 
                     {currentStage === 2 && (
                         <>
                             <div className="flex gap-10 justify-center w-full">
-                                <div className={`flex items-center`}>
+                                <div className={`flex items-center`} onClick={() => prevBackground()}>
                                     <div className={`${styles["switch-button-wrapper"]}`}>
                                         <div className={`${styles["switch-button-left"]}`}></div>
                                     </div>
                                 </div>
-                                <Character />
-                                <div className={`flex items-center`}>
+                                <div className={`bg-white border-4 border-black/30 rounded-2xl w-[500px] overflow-hidden`}>
+                                    <div className={`w-full rounded-xl flex items-center justify-center
+                                    ${selectedBackground !== 0 && styles[`mii-background-${selectedBackground}`]}`}>
+                                        <div className="-mb-10">
+                                            <Character />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className={`flex items-center`} onClick={() => nextBackground()}>
                                     <div className={`${styles["switch-button-wrapper"]}`}>
                                         <div className={`${styles["switch-button-right"]}`}></div>
                                     </div>

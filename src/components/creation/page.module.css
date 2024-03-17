@@ -19,3 +19,82 @@
 .switch-button-wrapper:hover {
     filter: drop-shadow(0 0 2px #20424E);
 }
+
+.mii-background-1 {
+    background: url('/items/background/background1.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.mii-background-2 {
+    background: url('/items/background/background2.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.mii-background-3 {
+    background: url('/items/background/background3.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.mii-background-4 {
+    background: url('/items/background/background4.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.mii-background-5 {
+    background: url('/items/background/background5.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.mii-background-6 {
+    background: url('/items/background/background6.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.mii-background-7 {
+    background: url('/items/background/background7.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.mii-background-8 {
+    background: url('/items/background/background8.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.mii-background-9 {
+    background: url('/items/background/background9.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.mii-background-10 {
+    background: url('/items/background/background10.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.mii-background-11 {
+    background: url('/items/background/background11.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+.mii-background-12 {
+    background: url('/items/background/background12.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.mii-background-13 {
+    background: url('/items/background/background13.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
