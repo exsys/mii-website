@@ -4,9 +4,10 @@ import Character from "./character";
 import ItemSelection from "./item-selection";
 import ItemTypeSelection from "./item-type-selection";
 import styles from "./page.module.css";
-import { ArrowDownTrayIcon, ArrowLeftIcon, DocumentDuplicateIcon, FolderArrowDownIcon, InformationCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { ArrowDownTrayIcon, ArrowLeftIcon, FolderArrowDownIcon, InformationCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { MiiCharacterContext } from "@/providers/character-provider";
 import { Transition, Dialog } from "@headlessui/react";
+import Header from "../layout/header";
 
 const BACKGROUNDS = 14;
 type Props = {
@@ -21,7 +22,7 @@ type SaveStringDialogProps = {
 export default function CharacterCreation({ setCurrentView }: Props) {
     const [character, setCharacter] = useContext(MiiCharacterContext);
     const [selectedItemType, setSelectedItemType] = useState<string>("face");
-    const [currentStage, setCurrentStage] = useState<number>(1);
+    const [currentStage, setCurrentStage] = useState<number>(1); // 1 = item selection/mii creation, 2 = background selection
     const [selectedBackground, setSelectedBackground] = useState<number>(0);
     const [downloadLink, setDownloadLink] = useState<string>("");
     const [saveString, setSaveString] = useState<string>("");
@@ -71,6 +72,7 @@ export default function CharacterCreation({ setCurrentView }: Props) {
         }
     };
 
+    // TODO: sort the keys by z-index
     const saveMiiString = async () => {
         let miiString = "";
         // iterate through the character object and convert the values to hex.
@@ -78,7 +80,6 @@ export default function CharacterCreation({ setCurrentView }: Props) {
         const genderAsNum = character.gender === "male" ? 0 : 1;
         miiString += genderAsNum.toString(16);
         for (const [key, value] of Object.entries(character)) {
-            // first sort the keys by the z-index and then convert the values to hex
             if (key !== "gender") {
                 let numberInHex = (value as number).toString(16);
                 numberInHex = numberInHex.padStart(2, '0');
@@ -91,6 +92,7 @@ export default function CharacterCreation({ setCurrentView }: Props) {
 
     return (
         <div className={`h-full flex justify-center items-center gap-10`}>
+            <Header hideLaunchButton />
             <div className="h-full w-full">
                 <div className="h-full flex justify-center items-center flex-col gap-10">
                     {currentStage === 1 && (
@@ -167,7 +169,7 @@ export default function CharacterCreation({ setCurrentView }: Props) {
                                 <a download={"miionsolana.png"} href={downloadLink} className="hidden" id="download-link"></a>
                             </div>
 
-                            <DeleteItemsDialog openSaveStringDialog={openSaveStringDialog}
+                            <SaveStringDialog openSaveStringDialog={openSaveStringDialog}
                                 setOpenSaveStringDialog={setOpenSaveStringDialog}
                                 saveString={saveString} />
                         </div>
@@ -178,13 +180,13 @@ export default function CharacterCreation({ setCurrentView }: Props) {
     );
 }
 
-const DeleteItemsDialog = ({ openSaveStringDialog, setOpenSaveStringDialog, saveString }: SaveStringDialogProps) => {
-    const cancelDeleteItemsButtonRef = useRef(null);
+const SaveStringDialog = ({ openSaveStringDialog, setOpenSaveStringDialog, saveString }: SaveStringDialogProps) => {
+    const cancelSaveStringRef = useRef(null);
 
     return (
         <Transition show={openSaveStringDialog} as={Fragment}>
             <Dialog as="div" className="relative z-10 text-main-text-1"
-                initialFocus={cancelDeleteItemsButtonRef} onClose={setOpenSaveStringDialog}>
+                initialFocus={cancelSaveStringRef} onClose={setOpenSaveStringDialog}>
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"

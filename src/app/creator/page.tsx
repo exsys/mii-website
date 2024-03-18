@@ -9,9 +9,21 @@ export default function MiiCreator() {
     const [character, setCharacter] = useContext(MiiCharacterContext);
     const [currentView, setCurrentView] = useState<string>("selection");
 
-    const selectGender = (gender: string) => {
+    // TODO: sort by z-index
+    const selectGender = (gender: string, miiString?: string) => {
         const char = { ...character };
-        char.gender = gender;
+        if (gender === "load") {
+            char.gender = miiString?.charAt(0) === "0" ? "male" : "female";
+            miiString = miiString?.substring(1);
+            for (let i = 0; i < miiString!.length; i+=2) {
+                const hex = parseInt(miiString!.substring(i, i + 2), 16);
+                char[i / 2] = hex;
+            }
+            console.log(char)
+        } else {
+            char.gender = gender;
+        }
+
         setCurrentView("creation");
         setCharacter(char);
     }

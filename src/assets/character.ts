@@ -37,3 +37,5 @@ export const ITEM_Z_INDEX = {
     hat: 12,
     accessory: 13,
 };
+
+export const RACIST_LUFFY = "00407010101010f0101010b1701010e0108";

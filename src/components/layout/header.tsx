@@ -3,7 +3,11 @@ import Link from "next/link";
 import styles from "./header.module.css";
 import { useState } from "react";
 
-export default function Header() {
+type Props = {
+    hideLaunchButton?: boolean;
+};
+
+export default function Header({ hideLaunchButton = false }: Props) {
     const [active, setActive] = useState(false);
 
     return (
@@ -21,7 +25,7 @@ export default function Header() {
                     <div className={`${active ? styles.active : ""} ${styles.menu} fixed w-screen h-screen inset-0 bg-black`}>
                         <nav className="flex flex-col gap-8 text-xl text-white">
                             <Link href={"https://jup.ag/swap/SOL-6yaVaoVREVoTt5euoSFpsxLEia1JnzM6fqZj6UWFok1F"}
-                            target="_blank">
+                                target="_blank">
                                 Buy Token
                             </Link>
                             <Link href={"/about"}>About</Link>
@@ -39,9 +43,11 @@ export default function Header() {
                         <Link href={"/about"} className="hover:text-slate-500">
                             About
                         </Link>
-                        <Link href={"/creator"} className="item-button !w-fit !h-fit py-2 px-7 hover:scale-95">
-                            Launch Creator
-                        </Link>
+                        {!hideLaunchButton && (
+                            <Link href={"/creator"} className="item-button !w-fit !h-fit py-2 px-7 hover:scale-95">
+                                Launch Creator
+                            </Link>
+                        )}
                     </nav>
                 </div>
             </div>
