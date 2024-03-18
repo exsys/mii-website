@@ -60,7 +60,6 @@ export async function POST(req: NextRequest) {
                 copy.src = imgSrc;
             }
 
-            //console.log(copy.src)
             items.push({ ...copy });
         }
 
@@ -131,8 +130,7 @@ export async function POST(req: NextRequest) {
 
         return new NextResponse(imageBuffer, { headers: { 'Content-Type': 'image/png' } });
     } catch (error: any) {
-        console.log("-------------------------------------------------------------------------------")
-        console.log(error)
+        //console.log(error)
         return new NextResponse({ ...error }, { status: 500 });
     }
 }

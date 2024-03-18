@@ -65,6 +65,9 @@ export async function POST(req: NextRequest) {
 
             const item: any = allItems[itemType].find((item: any) => item.id === itemId); // item object of each item type
             const copy = { ...item }; // copy needed because else nextjs will use the reference when multiple calls occur. it will just add to the string instead of replace it.
+            if (itemType === "head") {
+                copy.src = copy.src.replace(`head${copy.id}`, `head${copy.id}-${character.skin_color}`);
+            }
             const imgSrc = isProduction ? `${BASE_URL}${copy.src}` : path.join(process.cwd(), `/public${copy.src}`);
             if (isProduction) {
                 const imgBuffer = await got(imgSrc).buffer();
@@ -76,9 +79,6 @@ export async function POST(req: NextRequest) {
         }
 
         // replace color related items with the correct color
-        const headObject = items.find((item: any) => item.itemType === "head");
-        headObject.src = headObject.src.replace(`head${headObject.id}`, `head${headObject.id}-${character.skin_color}`);
-
         if (character.hair_color !== 1) {
             const hairObject = items.find((item: any) => item.itemType === "hair");
             const eyebrowsObject = items.find((item: any) => item.itemType === "eyebrows");
