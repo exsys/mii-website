@@ -20,6 +20,10 @@ export default function Header() {
 
                     <div className={`${active ? styles.active : ""} ${styles.menu} fixed w-screen h-screen inset-0 bg-black`}>
                         <nav className="flex flex-col gap-8 text-xl text-white">
+                            <Link href={"https://jup.ag/swap/SOL-6yaVaoVREVoTt5euoSFpsxLEia1JnzM6fqZj6UWFok1F"}
+                            target="_blank">
+                                Buy Token
+                            </Link>
                             <Link href={"/about"}>About</Link>
                         </nav>
                     </div>
@@ -28,7 +32,13 @@ export default function Header() {
                 {/** non-mobile navbar */}
                 <div className="hidden sm:flex">
                     <nav className="flex gap-12 text-xl items-center">
-                        <Link href={"/about"} className="hover:text-slate-500">About</Link>
+                        <Link href={"https://jup.ag/swap/SOL-6yaVaoVREVoTt5euoSFpsxLEia1JnzM6fqZj6UWFok1F"}
+                            className="hover:text-slate-500" target="_blank">
+                            Buy Token
+                        </Link>
+                        <Link href={"/about"} className="hover:text-slate-500">
+                            About
+                        </Link>
                         <Link href={"/creator"} className="item-button !w-fit !h-fit py-2 px-7 hover:scale-95">
                             Launch Creator
                         </Link>
