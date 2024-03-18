@@ -7,10 +7,12 @@ import {
     EYECOLOR_MAPPING, EYEGAMMA_MAPPING_1, EYEGAMMA_MAPPING_2,
     HAIRCOLOR_MAPPING, HAIRGAMMA_MAPPING_1, HAIRGAMMA_MAPPING_2, SHIRTCOLOR_MAPPING, SHIRTGAMMA_MAPPING_1, SHIRTGAMMA_MAPPING_2,
 } from "@/assets/mappings";
+import { BASE_URL } from "@/config/config";
 
 type zlayer = keyof typeof ITEM_Z_INDEX;
 const imageWidth = 240;
 const imageHeight = 380;
+const isProduction = process.env.NODE_ENV === "production";
 
 export async function POST(req: NextRequest) {
     try {
@@ -43,7 +45,7 @@ export async function POST(req: NextRequest) {
 
             const item: any = allItems[itemType].find((item: any) => item.id === itemId); // item object of each item type
             const copy = { ...item }; // copy needed because else nextjs will use the reference when multiple calls occur. it will just add to the string instead of replace it.
-            copy.src = path.join(process.cwd(), `/public${item.src}`);
+            copy.src = isProduction ? `${BASE_URL}${item.src}` : path.join(process.cwd(), `/public${item.src}`);
             items.push({ ...copy });
         }
 
