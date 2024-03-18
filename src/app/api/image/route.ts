@@ -1,7 +1,6 @@
 import { ITEM_Z_INDEX } from "@/assets/character";
 import { NextRequest, NextResponse } from "next/server";
 import sharp from "sharp";
-import fs from "fs";
 import path from "path";
 import { ITEMS_FEMALE, ITEMS_MALE } from "@/assets/items";
 import {
