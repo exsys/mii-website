@@ -2,6 +2,7 @@ import { ITEM_Z_INDEX } from "@/assets/character";
 import { NextRequest, NextResponse } from "next/server";
 import sharp from "sharp";
 import path from "path";
+import got from "got";
 import { ITEMS_FEMALE, ITEMS_MALE } from "@/assets/items";
 import {
     EYECOLOR_MAPPING, EYEGAMMA_MAPPING_1, EYEGAMMA_MAPPING_2,
@@ -43,24 +44,27 @@ export async function POST(req: NextRequest) {
                 continue;
             }
 
+
             const item: any = allItems[itemType].find((item: any) => item.id === itemId); // item object of each item type
             const copy = { ...item }; // copy needed because else nextjs will use the reference when multiple calls occur. it will just add to the string instead of replace it.
-            const imgSrc = isProduction ? `${BASE_URL}${item.src}` : path.join(process.cwd(), `/public${item.src}`);
-            if (isProduction) {
-                const imgRes = await fetch(imgSrc);
-                const img = await imgRes.text();
-                //copy.src = Buffer.from(img, "base64");
-                copy.src = img;
-            } else {
-                copy.src = path.join(process.cwd(), `/public${item.src}`);
+            if (itemType === "head") {
+                copy.src = copy.src.replace(`head${copy.id}`, `head${copy.id}-${character.skin_color}`);
             }
+
+            // TODO: this can be changed from cdn to local storage. performance would increase if images are stored on local server
+            const imgSrc = isProduction ? `${BASE_URL}${copy.src}` : path.join(process.cwd(), `/public${copy.src}`);
+            if (isProduction) {
+                const imgBuffer = await got(imgSrc).buffer();
+                copy.src = imgBuffer;
+            } else {
+                copy.src = imgSrc;
+            }
+
+            //console.log(copy.src)
             items.push({ ...copy });
         }
 
         // replace color related items with the correct color
-        const headObject = items.find((item: any) => item.itemType === "head");
-        headObject.src = headObject.src.replace(`head${headObject.id}`, `head${headObject.id}-${character.skin_color}`);
-
         if (character.hair_color !== 1) {
             const hairObject = items.find((item: any) => item.itemType === "hair");
             const eyebrowsObject = items.find((item: any) => item.itemType === "eyebrows");
@@ -127,6 +131,7 @@ export async function POST(req: NextRequest) {
 
         return new NextResponse(imageBuffer, { headers: { 'Content-Type': 'image/png' } });
     } catch (error: any) {
+        console.log("-------------------------------------------------------------------------------")
         console.log(error)
         return new NextResponse({ ...error }, { status: 500 });
     }

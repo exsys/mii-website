@@ -9,6 +9,7 @@ import {
     SHIRTGAMMA_MAPPING_1, SHIRTGAMMA_MAPPING_2, SHIRTCOLOR_MAPPING
 } from "@/assets/mappings";
 import { BASE_URL } from "@/config/config";
+import got from "got";
 
 const charImageWidth = 240;
 const charImageHeight = 350;
@@ -40,8 +41,9 @@ export async function POST(req: NextRequest) {
         let result: any[] = [];
 
         if (background !== 0) {
+            // on production image buffer from cdn is retrieved, else local file is used
             const backgroundSrc =
-                isProduction ? `${BASE_URL}/items/background/background${background}.png` :
+                isProduction ? await got(`${BASE_URL}/items/background/background${background}.png`).buffer() :
                     path.join(process.cwd(), `/public/items/background/background${background}.png`);
             const backgroundComposite = {
                 src: await sharp(backgroundSrc).resize({ width: imageWidth, height: imageHeight }).toBuffer(),
@@ -63,7 +65,13 @@ export async function POST(req: NextRequest) {
 
             const item: any = allItems[itemType].find((item: any) => item.id === itemId); // item object of each item type
             const copy = { ...item }; // copy needed because else nextjs will use the reference when multiple calls occur. it will just add to the string instead of replace it.
-            copy.src = isProduction ? `${BASE_URL}${item.src}` : path.join(process.cwd(), `/public${item.src}`);
+            const imgSrc = isProduction ? `${BASE_URL}${copy.src}` : path.join(process.cwd(), `/public${copy.src}`);
+            if (isProduction) {
+                const imgBuffer = await got(imgSrc).buffer();
+                copy.src = imgBuffer;
+            } else {
+                copy.src = imgSrc;
+            }
             items.push({ ...copy });
         }
 
