@@ -109,7 +109,7 @@ export default function CharacterCreation({ setCurrentView }: Props) {
                                         <div className={`${styles["switch-button-left"]}`}></div>
                                     </div>
                                 </div>
-                                <div className={`bg-white border-4 border-black/30 rounded-2xl w-[500px] overflow-hidden`}>
+                                <div className={`bg-white border-4 border-black/30 rounded-2xl w-[500px] min-h-[340px] overflow-hidden`}>
                                     <div className={`w-full rounded-xl flex items-center justify-center
                                     ${selectedBackground !== 0 && styles[`mii-background-${selectedBackground}`]}`}>
                                         <div className="-mb-10">
