@@ -45,7 +45,15 @@ export async function POST(req: NextRequest) {
 
             const item: any = allItems[itemType].find((item: any) => item.id === itemId); // item object of each item type
             const copy = { ...item }; // copy needed because else nextjs will use the reference when multiple calls occur. it will just add to the string instead of replace it.
-            copy.src = isProduction ? `${BASE_URL}${item.src}` : path.join(process.cwd(), `/public${item.src}`);
+            const imgSrc = isProduction ? `${BASE_URL}${item.src}` : path.join(process.cwd(), `/public${item.src}`);
+            if (isProduction) {
+                const imgRes = await fetch(imgSrc);
+                const img = await imgRes.text();
+                //copy.src = Buffer.from(img, "base64");
+                copy.src = img;
+            } else {
+                copy.src = path.join(process.cwd(), `/public${item.src}`);
+            }
             items.push({ ...copy });
         }
 
