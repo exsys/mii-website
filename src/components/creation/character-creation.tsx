@@ -1,16 +1,22 @@
 "use client";
-import { useContext, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useRef, useState } from "react";
 import Character from "./character";
 import ItemSelection from "./item-selection";
 import ItemTypeSelection from "./item-type-selection";
 import styles from "./page.module.css";
-import { ArrowDownTrayIcon, ArrowLeftIcon, FolderArrowDownIcon } from "@heroicons/react/24/outline";
+import { ArrowDownTrayIcon, ArrowLeftIcon, DocumentDuplicateIcon, FolderArrowDownIcon, InformationCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { MiiCharacterContext } from "@/providers/character-provider";
+import { Transition, Dialog } from "@headlessui/react";
 
+const BACKGROUNDS = 14;
 type Props = {
     setCurrentView: (view: string) => void;
 }
-const BACKGROUNDS = 14;
+type SaveStringDialogProps = {
+    openSaveStringDialog: boolean;
+    setOpenSaveStringDialog: (open: boolean) => void;
+    saveString: string;
+}
 
 export default function CharacterCreation({ setCurrentView }: Props) {
     const [character, setCharacter] = useContext(MiiCharacterContext);
@@ -18,6 +24,16 @@ export default function CharacterCreation({ setCurrentView }: Props) {
     const [currentStage, setCurrentStage] = useState<number>(1);
     const [selectedBackground, setSelectedBackground] = useState<number>(0);
     const [downloadLink, setDownloadLink] = useState<string>("");
+    const [saveString, setSaveString] = useState<string>("");
+    const [openSaveStringDialog, setOpenSaveStringDialog] = useState(false);
+
+    useEffect(() => {
+        const downloadElement = document.getElementById("download-link");
+        if (downloadElement) {
+            downloadElement.click();
+        }
+    }, [downloadLink]);
+
 
     const nextBackground = async () => {
         const nextId = selectedBackground + 1;
@@ -55,12 +71,23 @@ export default function CharacterCreation({ setCurrentView }: Props) {
         }
     };
 
-    useEffect(() => {
-        const downloadElement = document.getElementById("download-link");
-        if (downloadElement) {
-            downloadElement.click();
+    const saveMiiString = async () => {
+        let miiString = "";
+        // iterate through the character object and convert the values to hex.
+        // that way, 255 instead of 99 items per item type can be stored
+        const genderAsNum = character.gender === "male" ? 0 : 1;
+        miiString += genderAsNum.toString(16);
+        for (const [key, value] of Object.entries(character)) {
+            // first sort the keys by the z-index and then convert the values to hex
+            if (key !== "gender") {
+                let numberInHex = (value as number).toString(16);
+                numberInHex = numberInHex.padStart(2, '0');
+                miiString += numberInHex;
+            }
         }
-    }, [downloadLink]);
+        setSaveString(miiString);
+        setOpenSaveStringDialog(true);
+    };
 
     return (
         <div className={`h-full flex justify-center items-center gap-10`}>
@@ -131,7 +158,7 @@ export default function CharacterCreation({ setCurrentView }: Props) {
                                         Download Image
                                     </span>
                                 </button>
-                                <button className="wii-button flex gap-3 w-[280px]">
+                                <button className="wii-button flex gap-3 w-[280px]" onClick={() => saveMiiString()}>
                                     <FolderArrowDownIcon className="w-6 h-6" />
                                     <span>
                                         Save Mii
@@ -139,10 +166,73 @@ export default function CharacterCreation({ setCurrentView }: Props) {
                                 </button>
                                 <a download={"miionsolana.png"} href={downloadLink} className="hidden" id="download-link"></a>
                             </div>
+
+                            <DeleteItemsDialog openSaveStringDialog={openSaveStringDialog}
+                                setOpenSaveStringDialog={setOpenSaveStringDialog}
+                                saveString={saveString} />
                         </div>
                     )}
                 </div>
             </div>
         </div>
     );
+}
+
+const DeleteItemsDialog = ({ openSaveStringDialog, setOpenSaveStringDialog, saveString }: SaveStringDialogProps) => {
+    const cancelDeleteItemsButtonRef = useRef(null);
+
+    return (
+        <Transition show={openSaveStringDialog} as={Fragment}>
+            <Dialog as="div" className="relative z-10 text-main-text-1"
+                initialFocus={cancelDeleteItemsButtonRef} onClose={setOpenSaveStringDialog}>
+                <Transition.Child
+                    as={Fragment}
+                    enter="ease-out duration-300"
+                    enterFrom="opacity-0"
+                    enterTo="opacity-100"
+                    leave="ease-in duration-200"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                >
+                    <div className="fixed inset-0 bg-black/25" />
+                </Transition.Child>
+
+                <div className="fixed inset-0 overflow-y-auto">
+                    <div className="flex min-h-full items-center justify-center p-4 text-center">
+                        <Transition.Child as={Fragment}
+                            enter="ease-out duration-300"
+                            enterFrom="opacity-0 scale-95"
+                            enterTo="opacity-100 scale-100"
+                            leave="ease-in duration-200"
+                            leaveFrom="opacity-100 scale-100"
+                            leaveTo="opacity-0 scale-95"
+                        >
+                            <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white
+                                bg-main-card p-6 text-left align-middle shadow-xl transition-all text-main-text-1">
+                                <Dialog.Title as="h2" className="text-xl font-semibold mb-4 flex justify-between items-center">
+                                    <span>
+                                        Save Mii String
+                                    </span>
+                                    <XMarkIcon className="w-6 h-6 cursor-pointer hover:text-gray-600" 
+                                    onClick={() => setOpenSaveStringDialog(false)} />
+                                </Dialog.Title>
+
+                                <div className="flex gap-4 mb-4 items-center justify-center">
+                                    <input type="text" value={saveString} readOnly
+                                        className="border border-gray-500 p-2 outline-none rounded-md flex-1"
+                                        onClick={(e: any) => e.currentTarget.select()} />
+                                </div>
+                                <div className="px-1">
+                                    <InformationCircleIcon className="w-5 h-5 inline mr-2" />
+                                    <p className="inline">
+                                        You can use this string to load your Mii at a later time.
+                                    </p>
+                                </div>
+                            </Dialog.Panel>
+                        </Transition.Child>
+                    </div>
+                </div>
+            </Dialog>
+        </Transition>
+    )
 }
