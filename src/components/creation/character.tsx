@@ -1,13 +1,12 @@
 "use client";
 import { MiiCharacterContext } from "@/providers/character-provider";
 import { useContext, useEffect, useState } from "react";
-import { ITEM_Z_INDEX } from "@/assets/character";
-
-type zlayer = keyof typeof ITEM_Z_INDEX;
+import { Blocks } from "react-loader-spinner";
 
 export default function Character() {
     const [character, setCharacter] = useContext(MiiCharacterContext);
     const [imageUrl, setImageUrl] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(true);
 
     /** this will pick up on the changes of the character and update the image on each change */
     useEffect(() => {
@@ -25,6 +24,7 @@ export default function Character() {
                 const blob = await res.blob();
                 const objectURL = URL.createObjectURL(blob);
                 setImageUrl(objectURL);
+                setLoading(false);
             } catch (error) {
                 console.log(error)
             }
@@ -32,7 +32,9 @@ export default function Character() {
     }, [character]);
 
     return (
-        <div>
+        <div className="relative min-w-[240px]">
+            <Blocks height="60" width="60" color="#4fa94d" ariaLabel="blocks-loading" wrapperStyle={{}}
+                visible={loading} wrapperClass="blocks-wrapper absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
             <img src={imageUrl} alt="" id="mii-character" />
         </div>
     )
