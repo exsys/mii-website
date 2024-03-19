@@ -9,6 +9,7 @@ import { MiiCharacterContext } from "@/providers/character-provider";
 import { Transition, Dialog } from "@headlessui/react";
 import Header from "../layout/header";
 import { MII_STRING_ORDER } from "@/assets/character";
+import { Blocks } from "react-loader-spinner";
 
 const BACKGROUNDS = 14;
 type Props = {
@@ -28,6 +29,7 @@ export default function CharacterCreation({ setCurrentView }: Props) {
     const [downloadLink, setDownloadLink] = useState<string>("");
     const [saveString, setSaveString] = useState<string>("");
     const [openSaveStringDialog, setOpenSaveStringDialog] = useState(false);
+    const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
         const downloadElement = document.getElementById("download-link");
@@ -56,6 +58,8 @@ export default function CharacterCreation({ setCurrentView }: Props) {
     };
 
     const downloadImage = async () => {
+        setLoading(true);
+        await new Promise(resolve => setTimeout(resolve, 50)); // short delay so button can't be spammed
         const charImgSrc = document.getElementById("mii-character")?.getAttribute("src");
         if (charImgSrc) {
             const body = {
@@ -70,6 +74,7 @@ export default function CharacterCreation({ setCurrentView }: Props) {
             const blob = await res.blob();
             const objectURL = URL.createObjectURL(blob);
             setDownloadLink(objectURL);
+            setLoading(false);
         }
     };
 
@@ -176,8 +181,13 @@ export default function CharacterCreation({ setCurrentView }: Props) {
                             </div>
 
                             <div className="flex flex-col sm:flex-row gap-10 mt-10 justify-center items-center" data-aos="fade-up">
-                                <button className="wii-button flex gap-3 w-[280px]" onClick={() => downloadImage()}>
-                                    <ArrowDownTrayIcon className="w-6 h-6" />
+                                <button className="wii-button flex gap-3 w-[280px]" onClick={() => downloadImage()} disabled={loading}>
+                                    {loading ? (
+                                        <Blocks height="30" width="30" color="#4fa94d" ariaLabel="blocks-loading" wrapperStyle={{}}
+                                            visible={loading} wrapperClass="blocks-wrapper" />
+                                    ) : (
+                                        <ArrowDownTrayIcon className="w-6 h-6" />
+                                    )}
                                     <span>
                                         Download Image
                                     </span>
