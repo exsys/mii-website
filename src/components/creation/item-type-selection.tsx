@@ -7,7 +7,7 @@ type Props = {
 
 export default function ItemTypeSelection({ selectedItemType, setSelectedItemType }: Props) {
     return (
-        <div className="flex text-center">
+        <div className="flex text-center justify-center flex-wrap">
             <div className={`item-type-button ${selectedItemType === "face" && "active"}`}
                 onClick={() => setSelectedItemType("face")}>
                 <img src={`/items/placeholder/item-type/type-face-1.svg`} alt="" />

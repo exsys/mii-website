@@ -85,11 +85,11 @@ export default function ItemSelection({ itemType }: Props) {
     }
 
     return (
-        <div>
+        <div className="flex flex-col items-center sm:block">
             {itemType === "face" ? (
                 <div className="border-4 border-gray-400 bg-black/20">
                     <div className="border-b-2 border-gray-400 py-1.5 px-8">
-                        <div className="flex flex-col gap-2">
+                        <div className="flex flex-col gap-1.5">
                             <div>
                                 <h2 className="text-2xl mb-1">
                                     Skin Color

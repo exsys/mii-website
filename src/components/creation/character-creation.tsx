@@ -91,12 +91,12 @@ export default function CharacterCreation({ setCurrentView }: Props) {
     };
 
     return (
-        <div className={`h-full flex justify-center items-center gap-10`}>
+        <div className={`h-fit flex justify-center items-center gap-10`}>
             <Header hideLaunchButton />
-            <div className="h-full w-full">
-                <div className="h-full flex justify-center items-center flex-col gap-10">
+            <div className="h-full w-full py-32">
+                <div className="h-full flex justify-center items-center flex-col gap-10 px-2">
                     {currentStage === 1 && (
-                        <div>
+                        <div className="w-full sm:w-fit">
                             <div className="mb-2 flex gap-2 items-center w-fit bg-black/20 py-1 px-2 border border-black/30
                             hover:bg-black/30" onClick={() => setCurrentView("selection")}>
                                 <ArrowLeftIcon className="w-8 h-8 stroke-2" />
@@ -109,16 +109,19 @@ export default function CharacterCreation({ setCurrentView }: Props) {
                                 <ItemTypeSelection selectedItemType={selectedItemType} setSelectedItemType={setSelectedItemType} />
                             </div>
 
-                            <div className="flex gap-5 justify-between w-full relative">
-                                <Character />
-                                <ItemSelection itemType={selectedItemType} />
-                                <div className="absolute bottom-0 left-[36px] bg-black/40 p-2 border-2 border-black/30 rounded-xl
-                                min-w-[180px] text-center hover:scale-95 hover:bg-black/50"
-                                    onClick={() => setCurrentStage(2)}>
-                                    <h3 className="text-white text-2xl drop-shadow-lg">
-                                        Create
-                                    </h3>
+                            <div className="flex flex-col sm:flex-row justify-between w-full gap-5">
+                                <div className="relative">
+                                    <Character />
+                                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 sm:left-[36px]
+                                    bg-black/40 p-2 border-2 border-black/30 rounded-xl min-w-[180px] text-center
+                                    hover:scale-95 hover:bg-black/50 sm:translate-x-0"
+                                        onClick={() => setCurrentStage(2)}>
+                                        <h3 className="text-white text-2xl drop-shadow-lg">
+                                            Create
+                                        </h3>
+                                    </div>
                                 </div>
+                                <ItemSelection itemType={selectedItemType} />
                             </div>
                         </div>
                     )}
