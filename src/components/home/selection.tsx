@@ -23,32 +23,60 @@ export default function Selection({ startCreator }: Props) {
     return (
         <div className={`w-full h-full`}>
             {currentSelection === 0 && (
-                <div className="absolute bottom-10 sm:bottom-16 left-1/2 -translate-x-1/2
-                flex gap-4 sm:gap-10 lg:gap-20 flex-col md:flex-row">
-                    <div onClick={() => setCurrentSelection(1)} data-aos="fade-right" data-aos-delay="200">
-                        <div className="wii-button">
-                            New Mii
+                <div>
+                    <div className="hidden sm:flex sm:gap-10 lg:gap-20 bottom-16 left-1/2 -translate-x-1/2 absolute">
+                        <div onClick={() => setCurrentSelection(1)} data-aos="fade-right" data-aos-delay="200">
+                            <div className="wii-button">
+                                New Mii
+                            </div>
+                        </div>
+                        <div data-aos="fade-left" data-aos-delay="200">
+                            <div className="wii-button" onClick={() => setOpenLoadStringDialog(true)}>
+                                Load Mii
+                            </div>
                         </div>
                     </div>
-                    <div data-aos="fade-left" data-aos-delay="200">
-                        <div className="wii-button" onClick={() => setOpenLoadStringDialog(true)}>
-                            Load Mii
+
+                    <div className="absolute flex flex-col bottom-10 gap-4 left-1/2 -translate-x-1/2 sm:hidden">
+                        <div onClick={() => setCurrentSelection(1)}>
+                            <div className="wii-button">
+                                New Mii
+                            </div>
+                        </div>
+                        <div>
+                            <div className="wii-button" onClick={() => setOpenLoadStringDialog(true)}>
+                                Load Mii
+                            </div>
                         </div>
                     </div>
                 </div>
             )}
 
             {currentSelection === 1 && (
-                <div className="absolute bottom-10 sm:bottom-16 left-1/2 -translate-x-1/2
-                flex gap-4 sm:gap-10 lg:gap-20 flex-col md:flex-row">
-                    <div className="hover:scale-95" onClick={() => startCreator("male")} data-aos="fade-right">
-                        <div className="wii-button">
-                            Male
+                <div>
+                    <div className="hidden absolute bottom-16 left-1/2 -translate-x-1/2 sm:flex sm:gap-10 lg:gap-20 flex-row">
+                        <div className="hover:scale-95" onClick={() => startCreator("male")} data-aos="fade-right">
+                            <div className="wii-button">
+                                Male
+                            </div>
+                        </div>
+                        <div className="hover:scale-95" onClick={() => startCreator("female")} data-aos="fade-left">
+                            <div className="wii-button">
+                                Female
+                            </div>
                         </div>
                     </div>
-                    <div className="hover:scale-95" onClick={() => startCreator("female")} data-aos="fade-left">
-                        <div className="wii-button">
-                            Female
+
+                    <div className="sm:hidden absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-4 flex-col">
+                        <div className="hover:scale-95" onClick={() => startCreator("male")}>
+                            <div className="wii-button">
+                                Male
+                            </div>
+                        </div>
+                        <div className="hover:scale-95" onClick={() => startCreator("female")}>
+                            <div className="wii-button">
+                                Female
+                            </div>
                         </div>
                     </div>
                 </div>
