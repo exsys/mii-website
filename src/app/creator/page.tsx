@@ -34,7 +34,7 @@ export default function MiiCreator() {
         <div className={`h-full ${styles["wii-cursor"]}`}>
             <div className="h-full relative">
                 {currentView === "selection" && (
-                    <div className={`h-full ${styles["mii-background"]}`} data-aos="zoom-out">
+                    <div className={`h-full ${styles["mii-channel-background"]}`} data-aos="zoom-out">
                         <Selection startCreator={startCreator} />
                     </div>
                 )}

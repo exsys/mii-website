@@ -2,9 +2,15 @@
     cursor: url("/cursor/wii-cursor.cur"), auto;
 }
 
-.mii-background {
-    background-image: url("/images/miichannel.webp");
+.mii-channel-background {
+    background-image: url("/images/miichannel-m.webp");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% 50%;
+}
+
+@media (min-width: 768px) {
+    .mii-channel-background {
+        background-image: url("/images/miichannel.webp");
+    }
 }

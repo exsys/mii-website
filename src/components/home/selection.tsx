@@ -24,6 +24,7 @@ export default function Selection({ startCreator }: Props) {
         <div className={`w-full h-full`}>
             {currentSelection === 0 && (
                 <div>
+                    {/* non-mobile version */}
                     <div className="hidden sm:flex sm:gap-10 lg:gap-20 bottom-16 left-1/2 -translate-x-1/2 absolute">
                         <div onClick={() => setCurrentSelection(1)} data-aos="fade-right" data-aos-delay="200">
                             <div className="wii-button">
@@ -37,6 +38,18 @@ export default function Selection({ startCreator }: Props) {
                         </div>
                     </div>
 
+                    {/* mobile version */}
+                    <div className="w-full pt-28 flex flex-col gap-2 justify-center items-center md:hidden">
+                        <h1 className="text-6xl font-semibold">
+                            MII
+                        </h1>
+                        <h1 className="text-3xl font-semibold">
+                            ON
+                        </h1>
+                        <h1 className="text-6xl font-semibold">
+                            SOLANA
+                        </h1>
+                    </div>
                     <div className="absolute flex flex-col bottom-10 gap-4 left-1/2 -translate-x-1/2 sm:hidden">
                         <div onClick={() => setCurrentSelection(1)}>
                             <div className="wii-button">
@@ -54,6 +67,7 @@ export default function Selection({ startCreator }: Props) {
 
             {currentSelection === 1 && (
                 <div>
+                    {/* non-mobile version */}
                     <div className="hidden absolute bottom-16 left-1/2 -translate-x-1/2 sm:flex sm:gap-10 lg:gap-20 flex-row">
                         <div className="hover:scale-95" onClick={() => startCreator("male")} data-aos="fade-right">
                             <div className="wii-button">
@@ -67,6 +81,18 @@ export default function Selection({ startCreator }: Props) {
                         </div>
                     </div>
 
+                    {/* mobile version */}
+                    <div className="w-full pt-28 flex flex-col gap-2 justify-center items-center md:hidden">
+                        <h1 className="text-6xl font-semibold">
+                            MII
+                        </h1>
+                        <h1 className="text-3xl font-semibold">
+                            ON
+                        </h1>
+                        <h1 className="text-6xl font-semibold">
+                            SOLANA
+                        </h1>
+                    </div>
                     <div className="sm:hidden absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-4 flex-col">
                         <div className="hover:scale-95" onClick={() => startCreator("male")}>
                             <div className="wii-button">
