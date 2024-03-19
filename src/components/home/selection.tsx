@@ -23,7 +23,8 @@ export default function Selection({ startCreator }: Props) {
     return (
         <div className={`w-full h-full`}>
             {currentSelection === 0 && (
-                <div className="absolute bottom-16 left-1/2 -translate-x-1/2 flex gap-20">
+                <div className="absolute bottom-10 sm:bottom-16 left-1/2 -translate-x-1/2
+                flex gap-4 sm:gap-10 lg:gap-20 flex-col md:flex-row">
                     <div onClick={() => setCurrentSelection(1)} data-aos="fade-right" data-aos-delay="200">
                         <div className="wii-button">
                             New Mii
@@ -38,7 +39,8 @@ export default function Selection({ startCreator }: Props) {
             )}
 
             {currentSelection === 1 && (
-                <div className="absolute bottom-16 left-1/2 -translate-x-1/2 flex gap-20">
+                <div className="absolute bottom-10 sm:bottom-16 left-1/2 -translate-x-1/2
+                flex gap-4 sm:gap-10 lg:gap-20 flex-col md:flex-row">
                     <div className="hover:scale-95" onClick={() => startCreator("male")} data-aos="fade-right">
                         <div className="wii-button">
                             Male

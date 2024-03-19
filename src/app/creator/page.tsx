@@ -16,7 +16,6 @@ export default function MiiCreator() {
         if (gender === "load") {
             char.gender = miiString!.charAt(0) === "0" ? "male" : "female";
             const restOfMiiString = MII_STRING_ORDER.slice(1); // slice(1) ignores the first digit because thats the gender
-            console.log(restOfMiiString)
             let index = 1;
             restOfMiiString.forEach((itemType: string) => {
                 const hexByte = miiString!.substring(index, index + 2);
