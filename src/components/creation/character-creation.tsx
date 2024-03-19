@@ -126,19 +126,21 @@ export default function CharacterCreation({ setCurrentView }: Props) {
                     {currentStage === 2 && (
                         <div>
                             <div className="ml-24 mb-2 flex gap-2 items-center w-fit py-1 px-2 border 
-                            bg-black/20 border-black/30 hover:bg-black/30" onClick={() => setCurrentStage(1)}>
+                            bg-black/20 border-black/30 hover:bg-black/30" onClick={() => setCurrentStage(1)}
+                            data-aos="fade-down">
                                 <ArrowLeftIcon className="w-8 h-8 stroke-2" />
                                 <h3 className="text-lg">
                                     Return
                                 </h3>
                             </div>
                             <div className="flex gap-10 justify-center w-full">
-                                <div className={`flex items-center`} onClick={() => prevBackground()}>
+                                <div className={`flex items-center`} onClick={() => prevBackground()} data-aos="fade-right">
                                     <div className={`${styles["switch-button-wrapper"]}`}>
                                         <div className={`${styles["switch-button-left"]}`}></div>
                                     </div>
                                 </div>
-                                <div className={`bg-white border-4 border-black/30 rounded-2xl w-[500px] min-h-[340px] overflow-hidden`}>
+                                <div className={`bg-white border-4 border-black/30 rounded-2xl w-[500px] min-h-[340px] overflow-hidden`}
+                                data-aos="fade-down">
                                     <div className={`w-full rounded-xl flex items-center justify-center
                                     ${selectedBackground !== 0 && styles[`mii-background-${selectedBackground}`]}`}>
                                         <div className="-mb-10">
@@ -146,14 +148,14 @@ export default function CharacterCreation({ setCurrentView }: Props) {
                                         </div>
                                     </div>
                                 </div>
-                                <div className={`flex items-center`} onClick={() => nextBackground()}>
+                                <div className={`flex items-center`} onClick={() => nextBackground()} data-aos="fade-left">
                                     <div className={`${styles["switch-button-wrapper"]}`}>
                                         <div className={`${styles["switch-button-right"]}`}></div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="flex gap-10 mt-10 justify-center">
+                            <div className="flex gap-10 mt-10 justify-center" data-aos="fade-up">
                                 <button className="wii-button flex gap-3 w-[280px]" onClick={() => downloadImage()}>
                                     <ArrowDownTrayIcon className="w-6 h-6" />
                                     <span>
