@@ -4,22 +4,25 @@ import Selection from "@/components/home/selection";
 import { MiiCharacterContext } from "@/providers/character-provider";
 import { useContext, useState } from "react";
 import styles from "./page.module.css";
+import { MII_STRING_ORDER } from "@/assets/character";
 
 export default function MiiCreator() {
     const [character, setCharacter] = useContext(MiiCharacterContext);
     const [currentView, setCurrentView] = useState<string>("selection");
 
-    // TODO: sort by z-index
-    const selectGender = (gender: string, miiString?: string) => {
+    const startCreator = (gender: string, miiString?: string) => {
         const char = { ...character };
+        // load the hex string (mii string) if user entered load
         if (gender === "load") {
-            char.gender = miiString?.charAt(0) === "0" ? "male" : "female";
-            miiString = miiString?.substring(1);
-            for (let i = 0; i < miiString!.length; i+=2) {
-                const hex = parseInt(miiString!.substring(i, i + 2), 16);
-                char[i / 2] = hex;
-            }
-            console.log(char)
+            char.gender = miiString!.charAt(0) === "0" ? "male" : "female";
+            const restOfMiiString = MII_STRING_ORDER.slice(1); // slice(1) ignores the first digit because thats the gender
+            console.log(restOfMiiString)
+            let index = 1;
+            restOfMiiString.forEach((itemType: string) => {
+                const hexByte = miiString!.substring(index, index + 2);
+                char[itemType] = parseInt(hexByte, 16);
+                index += 2;
+            });
         } else {
             char.gender = gender;
         }
@@ -33,7 +36,7 @@ export default function MiiCreator() {
             <div className="h-full relative">
                 {currentView === "selection" && (
                     <div className={`h-full ${styles["mii-background"]}`} data-aos="zoom-out">
-                        <Selection selectGender={selectGender} />
+                        <Selection startCreator={startCreator} />
                     </div>
                 )}
 

@@ -38,4 +38,25 @@ export const ITEM_Z_INDEX = {
     accessory: 13,
 };
 
-export const RACIST_LUFFY = "00407010101010f0101010b1701010e0108";
+export const MII_STRING_ORDER = [
+    "gender",
+    "outfit_color",
+    "skin_color",
+    "eye_color",
+    "hair_color",
+    "outfit",
+    "head",
+    "makeup",
+    "wrinkles",
+    "eyebrows",
+    "eyes",
+    "mouth",
+    "nose",
+    "beard",
+    "glasses",
+    "hair",
+    "hat",
+    "accessory"
+];
+
+export const RACIST_LUFFY = "00104010701010103010f170b0101010e08";

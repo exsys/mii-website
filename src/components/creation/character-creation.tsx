@@ -8,6 +8,7 @@ import { ArrowDownTrayIcon, ArrowLeftIcon, FolderArrowDownIcon, InformationCircl
 import { MiiCharacterContext } from "@/providers/character-provider";
 import { Transition, Dialog } from "@headlessui/react";
 import Header from "../layout/header";
+import { MII_STRING_ORDER } from "@/assets/character";
 
 const BACKGROUNDS = 14;
 type Props = {
@@ -72,20 +73,19 @@ export default function CharacterCreation({ setCurrentView }: Props) {
         }
     };
 
-    // TODO: sort the keys by z-index
     const saveMiiString = async () => {
         let miiString = "";
         // iterate through the character object and convert the values to hex.
         // that way, 255 instead of 99 items per item type can be stored
-        const genderAsNum = character.gender === "male" ? 0 : 1;
-        miiString += genderAsNum.toString(16);
-        for (const [key, value] of Object.entries(character)) {
-            if (key !== "gender") {
-                let numberInHex = (value as number).toString(16);
-                numberInHex = numberInHex.padStart(2, '0');
-                miiString += numberInHex;
+        MII_STRING_ORDER.forEach((key: string) => {
+            if (key === "gender") {
+                miiString += character[key as keyof typeof character] === "male" ? 0 : 1; // only 2 possible values for gender tho
+            } else {
+                const itemTypeValue = character[key as keyof typeof character].toString(16).padStart(2, '0');
+                miiString += itemTypeValue;
             }
-        }
+        });
+
         setSaveString(miiString);
         setOpenSaveStringDialog(true);
     };

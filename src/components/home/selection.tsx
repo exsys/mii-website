@@ -4,7 +4,7 @@ import { Transition, Dialog } from "@headlessui/react";
 import { XMarkIcon, InformationCircleIcon } from "@heroicons/react/24/outline";
 
 type Props = {
-    selectGender: (gender: string, miiString?: string) => void;
+    startCreator: (gender: string, miiString?: string) => void;
 }
 type LoadStringDialogProps = {
     openLoadStringDialog: boolean;
@@ -12,12 +12,12 @@ type LoadStringDialogProps = {
     loadMiiString: (miiString: string) => void;
 }
 
-export default function Selection({ selectGender }: Props) {
+export default function Selection({ startCreator }: Props) {
     const [currentSelection, setCurrentSelection] = useState<number>(0);
     const [openLoadStringDialog, setOpenLoadStringDialog] = useState(false);
 
     const loadMiiString = (miiString: string) => {
-        selectGender("load", miiString);
+        startCreator("load", miiString);
     };
 
     return (
@@ -39,12 +39,12 @@ export default function Selection({ selectGender }: Props) {
 
             {currentSelection === 1 && (
                 <div className="absolute bottom-16 left-1/2 -translate-x-1/2 flex gap-20">
-                    <div className="hover:scale-95" onClick={() => selectGender("male")} data-aos="fade-right">
+                    <div className="hover:scale-95" onClick={() => startCreator("male")} data-aos="fade-right">
                         <div className="wii-button">
                             Male
                         </div>
                     </div>
-                    <div className="hover:scale-95" onClick={() => selectGender("female")} data-aos="fade-left">
+                    <div className="hover:scale-95" onClick={() => startCreator("female")} data-aos="fade-left">
                         <div className="wii-button">
                             Female
                         </div>
