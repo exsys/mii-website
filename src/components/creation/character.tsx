@@ -36,7 +36,7 @@ export default function Character() {
     }, [character]);
 
     return (
-        <div className="relative min-w-[240px] flex justify-center">
+        <div className="relative min-w-[240px] min-h-[300px] flex justify-center h-full">
             <Blocks height="60" width="60" color="#4fa94d" ariaLabel="blocks-loading" wrapperStyle={{}}
                 visible={loading} wrapperClass="blocks-wrapper absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
             <img src={imageUrl} alt="" id="mii-character" />

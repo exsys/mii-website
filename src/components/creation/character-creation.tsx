@@ -91,10 +91,11 @@ export default function CharacterCreation({ setCurrentView }: Props) {
     };
 
     return (
-        <div className={`h-fit flex justify-center items-center gap-10`}>
+        <div className={`h-fit sm:h-full flex justify-center items-center gap-10`}>
             <Header hideLaunchButton />
             <div className="h-full w-full py-32">
                 <div className="h-full flex justify-center items-center flex-col gap-10 px-2">
+                    {/** Mii Creation / Item Selection */}
                     {currentStage === 1 && (
                         <div className="w-full sm:w-fit">
                             <div className="mb-2 flex gap-2 items-center w-fit bg-black/20 py-1 px-2 border border-black/30
@@ -126,8 +127,9 @@ export default function CharacterCreation({ setCurrentView }: Props) {
                         </div>
                     )}
 
+                    {/** Background Selection */}
                     {currentStage === 2 && (
-                        <div className="w-full">
+                        <div className="w-full sm:w-fit">
                             <div className="sm:ml-24 mb-2 flex gap-2 items-center w-fit py-1 px-2 border 
                             bg-black/20 border-black/30 hover:bg-black/30" onClick={() => setCurrentStage(1)}
                                 data-aos="fade-down">
