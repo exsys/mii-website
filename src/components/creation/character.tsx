@@ -16,6 +16,9 @@ export default function Character() {
 
         async function getGeneratedCharacterImage(items: any) {
             try {
+                let timeoutId = setTimeout(() => {
+                    setLoading(true);
+                }, 150);
                 const res = await fetch("/api/image", {
                     method: "POST",
                     body: JSON.stringify(items),
@@ -23,6 +26,7 @@ export default function Character() {
                 });
                 const blob = await res.blob();
                 const objectURL = URL.createObjectURL(blob);
+                clearTimeout(timeoutId);
                 setImageUrl(objectURL);
                 setLoading(false);
             } catch (error) {
