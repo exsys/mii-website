@@ -15,7 +15,10 @@ export default function Header({ hideLaunchButton = false }: Props) {
             <div className="flex items-center justify-end w-3/4 mx-auto py-6">
 
                 {/** mobile navbar */}
-                <div className="inline-block sm:hidden">
+                <div className="flex justify-between w-full items-center sm:hidden">
+                    <Link href={"/"} className="text-2xl font-semibold">
+                        MII ON SOLANA
+                    </Link>
                     <div className="relative cursor-pointer z-30 p-1.5" onClick={() => setActive(!active)}>
                         <div className={`${styles["menu-icon-line"]} ${active ? `${styles["line1"]} !bg-white` : ""}`}></div>
                         <div className={`${styles["menu-icon-line"]} ${active ? `${styles["line2"]} !bg-white` : ""}`}></div>
@@ -34,20 +37,25 @@ export default function Header({ hideLaunchButton = false }: Props) {
                 </div>
 
                 {/** non-mobile navbar */}
-                <div className="hidden sm:flex">
-                    <nav className="flex gap-12 text-xl items-center">
-                        <Link href={"https://jup.ag/swap/SOL-6yaVaoVREVoTt5euoSFpsxLEia1JnzM6fqZj6UWFok1F"}
-                            className="hover:text-slate-500" target="_blank">
-                            Buy Token
+                <div className="hidden sm:flex w-full">
+                    <nav className="w-full flex gap-12 text-xl items-center justify-between">
+                        <Link href={"/"} className="text-3xl font-semibold">
+                            MII ON SOLANA
                         </Link>
-                        <Link href={"/about"} className="hover:text-slate-500">
-                            About
-                        </Link>
-                        {!hideLaunchButton && (
-                            <Link href={"/creator"} className="item-button !w-fit !h-fit py-2 px-7 hover:scale-95">
-                                Launch Creator
+                        <div className="flex gap-12 text-xl items-center justify-center">
+                            <Link href={"https://jup.ag/swap/SOL-6yaVaoVREVoTt5euoSFpsxLEia1JnzM6fqZj6UWFok1F"}
+                                className="hover:text-slate-500" target="_blank">
+                                Buy Token
                             </Link>
-                        )}
+                            <Link href={"/about"} className="hover:text-slate-500">
+                                About
+                            </Link>
+                            {!hideLaunchButton && (
+                                <Link href={"/creator"} className="item-button !w-fit !h-fit py-2 px-7 hover:scale-95">
+                                    Launch Creator
+                                </Link>
+                            )}
+                        </div>
                     </nav>
                 </div>
             </div>
