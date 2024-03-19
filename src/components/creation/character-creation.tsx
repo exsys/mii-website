@@ -127,7 +127,7 @@ export default function CharacterCreation({ setCurrentView }: Props) {
                         <div>
                             <div className="ml-24 mb-2 flex gap-2 items-center w-fit py-1 px-2 border 
                             bg-black/20 border-black/30 hover:bg-black/30" onClick={() => setCurrentStage(1)}
-                            data-aos="fade-down">
+                                data-aos="fade-down">
                                 <ArrowLeftIcon className="w-8 h-8 stroke-2" />
                                 <h3 className="text-lg">
                                     Return
@@ -139,9 +139,10 @@ export default function CharacterCreation({ setCurrentView }: Props) {
                                         <div className={`${styles["switch-button-left"]}`}></div>
                                     </div>
                                 </div>
-                                <div className={`bg-white border-4 border-black/30 rounded-2xl w-[500px] min-h-[340px] overflow-hidden`}
-                                data-aos="fade-down">
-                                    <div className={`w-full rounded-xl flex items-center justify-center
+                                <div className={`bg-white border-4 border-black/30 rounded-2xl 
+                                w-[500px] min-h-[340px] overflow-hidden`}
+                                    data-aos="fade-down">
+                                    <div className={`w-full h-full rounded-xl flex items-center justify-center
                                     ${selectedBackground !== 0 && styles[`mii-background-${selectedBackground}`]}`}>
                                         <div className="-mb-10">
                                             <Character />
@@ -217,8 +218,8 @@ const SaveStringDialog = ({ openSaveStringDialog, setOpenSaveStringDialog, saveS
                                     <span>
                                         Save Mii String
                                     </span>
-                                    <XMarkIcon className="w-6 h-6 cursor-pointer hover:text-gray-600" 
-                                    onClick={() => setOpenSaveStringDialog(false)} />
+                                    <XMarkIcon className="w-6 h-6 cursor-pointer hover:text-gray-600"
+                                        onClick={() => setOpenSaveStringDialog(false)} />
                                 </Dialog.Title>
 
                                 <div className="flex gap-4 mb-4 items-center justify-center">
