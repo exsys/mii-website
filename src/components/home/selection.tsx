@@ -182,7 +182,7 @@ const LoadStringDialog = ({ openLoadStringDialog, setOpenLoadStringDialog, loadM
 
                                 <div className="px-1 mt-1">
                                     <InformationCircleIcon className="w-5 h-5 inline mr-2" />
-                                    <p className="inline">
+                                    <p className="inline font-medium">
                                         Enter a Mii string to load a Mii character.
                                     </p>
                                 </div>

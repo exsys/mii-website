@@ -10,11 +10,13 @@ export default function InfoSection() {
                         <Image src={"/images/mii-chars.png"} width={800} height={776} alt="miis" priority />
                     </div>
                     <div className="lg:w-[40%] text-center lg:text-left flex flex-col justify-center items-center lg:items-start">
-                        <h1 className="text-4xl md:text-5xl bold mb-16">Create your own Mii</h1>
-                        <div className="text-xl leading-8 mb-5">
+                        <h1 className="text-4xl md:text-5xl font-semibold mb-16">
+                            Create your own Mii
+                        </h1>
+                        <div className="text-2xl leading-8 mb-5 font-medium">
                             Welcome to Mii on Solana. Dive into nostalgia as you craft your own personalized Mii character!
                         </div>
-                        <Link href={"/creator"} className="item-button !w-fit !h-11 px-5 mt-4">
+                        <Link href={"/creator"} className="item-button !w-fit !h-11 px-6 mt-4 text-lg">
                             Try it out
                         </Link>
                     </div>
