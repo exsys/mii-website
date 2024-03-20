@@ -18,7 +18,7 @@ export default function Character() {
             try {
                 let timeoutId = setTimeout(() => {
                     setLoading(true);
-                }, 150);
+                }, 170);
                 const res = await fetch("/api/image", {
                     method: "POST",
                     body: JSON.stringify(items),

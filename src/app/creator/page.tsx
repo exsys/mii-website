@@ -27,7 +27,7 @@ export default function MiiCreator() {
         }
 
         setCurrentView("creation");
-        setCharacter(char);
+        setCharacter(char); // character update will be automatically picked up by the character.tsx component
     }
 
     return (
