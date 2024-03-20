@@ -172,7 +172,8 @@ export default function ItemSelection({ itemType }: Props) {
                         {character.gender === "male" && (
                             <>
                                 {ITEMS_MALE[itemType as keyof typeof ITEMS_MALE].map((item: any, index: number) => (
-                                    <div key={index} className="item-button" onClick={() => changeItem(item)}>
+                                    <div key={index} onClick={() => changeItem(item)}
+                                    className={`item-button ${item.id === character[itemType] && "active"}`}>
                                         <span className="absolute top-0 left-1">
                                             {index + 1}
                                         </span>

@@ -23,6 +23,9 @@ html {
     @apply bg-gradient-to-b from-[#B6B6B6] to-[#FCFCFC];
     @apply drop-shadow-md font-medium;
   }
+  .item-button.active {
+    @apply border-red-500;
+  }
 
   .item-type-button {
     @apply border-2 border-green-700 py-2 px-3 flex items-center justify-center w-[66px] h-[53px];
