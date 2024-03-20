@@ -130,7 +130,7 @@ export async function POST(req: NextRequest) {
 
         return new NextResponse(imageBuffer, { headers: { 'Content-Type': 'image/png' } });
     } catch (error: any) {
-        //console.log(error)
+        console.log(error)
         return new NextResponse({ ...error }, { status: 500 });
     }
 }

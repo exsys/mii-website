@@ -3,8 +3,8 @@ export const ITEMS_MALE = {
         { id: 1, itemType: "head", src: "/items/head/head1.svg", position: { left: 50, top: 80 } },
         { id: 2, itemType: "head", src: "/items/head/head2.svg", position: { left: 50, top: 80 } },
         { id: 3, itemType: "head", src: "/items/head/head3.svg", position: { left: 50, top: 80 } },
-        { id: 4, itemType: "head", src: "/items/head/head4.svg", position: { left: 37, top: 80 } },
-        { id: 5, itemType: "head", src: "/items/head/head5.svg", position: { left: 28, top: 80 } },
+        { id: 4, itemType: "head", src: "/items/head/head4.png", position: { left: 37, top: 80 } },
+        //{ id: 5, itemType: "head", src: "/items/head/head5-1.svg", position: { left: 28, top: 80 } },
     ],
     makeup: [
         { id: 1, itemType: "makeup", src: "/items/placeholder/empty.svg", position: { left: 56, top: 171 } },
@@ -174,8 +174,8 @@ export const ITEMS_FEMALE = {
         { id: 1, itemType: "head", src: "/items/head/head1.svg", position: { left: 50, top: 80 } },
         { id: 2, itemType: "head", src: "/items/head/head2.svg", position: { left: 50, top: 80 } },
         { id: 3, itemType: "head", src: "/items/head/head3.svg", position: { left: 50, top: 80 } },
-        { id: 4, itemType: "head", src: "/items/head/head4.svg", position: { left: 37, top: 80 } },
-        { id: 5, itemType: "head", src: "/items/head/head5.svg", position: { left: 28, top: 80 } },
+        { id: 4, itemType: "head", src: "/items/head/head4.png", position: { left: 37, top: 80 } },
+        //{ id: 5, itemType: "head", src: "/items/head/head5.svg", position: { left: 28, top: 80 } },
     ],
     makeup: [
         { id: 1, itemType: "makeup", src: "/items/placeholder/empty.svg", position: { left: 56, top: 171 } },
