@@ -14,7 +14,8 @@ const TOTAL_COLORS = {
     skin_color: 4,
     hair_color: 7,
     eye_color: 7,
-    outfit_color: 9
+    outfit_color: 9,
+    accessory_color: 7,
 };
 
 export default function ItemSelection({ itemType }: Props) {
@@ -229,9 +230,27 @@ export default function ItemSelection({ itemType }: Props) {
                                         <img src="/icons/left-arrow.svg" alt="" className="w-full h-full" />
                                     </div>
                                     <div>
+                                        {/** this is using the haircolor images since both got the same colors */}
                                         <img src={`/items/placeholder/colors/haircolor${character.eye_color}.svg`} alt="" />
                                     </div>
                                     <div className="arrow-button !w-8 !h-8" onClick={() => nextItem("eye_color")}>
+                                        <img src="/icons/right-arrow.svg" alt="" className="w-full h-full" />
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {itemType === "accessory" && (
+                            <div className="w-full bg-black/20 border-2 border-black/30 py-1 px-3 flex gap-5 items-center
+                            justify-center">
+                                <h3 className="text-xl">
+                                    Accessory Color
+                                </h3>
+                                <div className="flex gap-2 items-center">
+                                    <div className="arrow-button !w-8 !h-8" onClick={() => prevItem("accessory_color")}>
+                                        <img src="/icons/left-arrow.svg" alt="" className="w-full h-full" />
+                                    </div>
+                                    <div className="arrow-button !w-8 !h-8" onClick={() => nextItem("accessory_color")}>
                                         <img src="/icons/right-arrow.svg" alt="" className="w-full h-full" />
                                     </div>
                                 </div>

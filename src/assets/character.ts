@@ -5,6 +5,7 @@ export const DEFAULT_CHARACTER: MiiCharacter = {
     hair_color: 1,
     eye_color: 1,
     outfit_color: 1,
+    accessory_color: 1,
     head: 1,
     hair: 1,
     eyes: 1,

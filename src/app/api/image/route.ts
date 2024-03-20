@@ -5,8 +5,12 @@ import path from "path";
 import got from "got";
 import { ITEMS_FEMALE, ITEMS_MALE } from "@/assets/items";
 import {
+    ACCESSORYCOLOR_MAPPING,
+    ACCESSORYGAMMA_MAPPING_1,
+    ACCESSORYGAMMA_MAPPING_2,
     EYECOLOR_MAPPING, EYEGAMMA_MAPPING_1, EYEGAMMA_MAPPING_2,
-    HAIRCOLOR_MAPPING, HAIRGAMMA_MAPPING_1, HAIRGAMMA_MAPPING_2, SHIRTCOLOR_MAPPING, SHIRTGAMMA_MAPPING_1, SHIRTGAMMA_MAPPING_2,
+    HAIRCOLOR_MAPPING, HAIRGAMMA_MAPPING_1, HAIRGAMMA_MAPPING_2,
+    SHIRTCOLOR_MAPPING, SHIRTGAMMA_MAPPING_1, SHIRTGAMMA_MAPPING_2,
 } from "@/assets/mappings";
 import { BASE_URL } from "@/config/config";
 
@@ -43,7 +47,6 @@ export async function POST(req: NextRequest) {
             if (ignoreList.includes(itemType) || itemType.includes("color")) {
                 continue;
             }
-
 
             const item: any = allItems[itemType].find((item: any) => item.id === itemId); // item object of each item type
             const copy = { ...item }; // copy needed because else nextjs will use the reference when multiple calls occur. it will just add to the string instead of replace it.
@@ -102,6 +105,17 @@ export async function POST(req: NextRequest) {
                     SHIRTGAMMA_MAPPING_2[character.outfit_color as keyof typeof SHIRTGAMMA_MAPPING_2]
                 )
                 .tint(SHIRTCOLOR_MAPPING[character.outfit_color as keyof typeof SHIRTCOLOR_MAPPING])
+                .toBuffer();
+        }
+
+        if (character.accessory_color !== 1) {
+            const accessoryObject = items.find((item: any) => item.itemType === "accessory");
+            accessoryObject.src = await sharp(accessoryObject.src)
+                .gamma(
+                    ACCESSORYGAMMA_MAPPING_1[character.accessory_color as keyof typeof ACCESSORYGAMMA_MAPPING_1],
+                    ACCESSORYGAMMA_MAPPING_2[character.accessory_color as keyof typeof ACCESSORYGAMMA_MAPPING_2]
+                )
+                .tint(ACCESSORYCOLOR_MAPPING[character.accessory_color as keyof typeof ACCESSORYCOLOR_MAPPING])
                 .toBuffer();
         }
 

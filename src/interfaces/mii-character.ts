@@ -4,6 +4,7 @@ export interface MiiCharacter {
     hair_color: number;
     eye_color: number;
     outfit_color: number;
+    accessory_color: number;
     head: number;
     hair: number;
     eyes: number;

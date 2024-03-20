@@ -6,7 +6,7 @@ import { ITEM_Z_INDEX } from "@/assets/character";
 import {
     HAIRGAMMA_MAPPING_1, HAIRGAMMA_MAPPING_2, HAIRCOLOR_MAPPING,
     EYEGAMMA_MAPPING_1, EYEGAMMA_MAPPING_2, EYECOLOR_MAPPING,
-    SHIRTGAMMA_MAPPING_1, SHIRTGAMMA_MAPPING_2, SHIRTCOLOR_MAPPING
+    SHIRTGAMMA_MAPPING_1, SHIRTGAMMA_MAPPING_2, SHIRTCOLOR_MAPPING, ACCESSORYCOLOR_MAPPING, ACCESSORYGAMMA_MAPPING_1, ACCESSORYGAMMA_MAPPING_2
 } from "@/assets/mappings";
 import { BASE_URL } from "@/config/config";
 import got from "got";
@@ -117,6 +117,17 @@ export async function POST(req: NextRequest) {
                     SHIRTGAMMA_MAPPING_2[character.outfit_color as keyof typeof SHIRTGAMMA_MAPPING_2]
                 )
                 .tint(SHIRTCOLOR_MAPPING[character.outfit_color as keyof typeof SHIRTCOLOR_MAPPING])
+                .toBuffer();
+        }
+
+        if (character.accessory_color !== 1) {
+            const accessoryObject = items.find((item: any) => item.itemType === "accessory");
+            accessoryObject.src = await sharp(accessoryObject.src)
+                .gamma(
+                    ACCESSORYGAMMA_MAPPING_1[character.accessory_color as keyof typeof ACCESSORYGAMMA_MAPPING_1],
+                    ACCESSORYGAMMA_MAPPING_2[character.accessory_color as keyof typeof ACCESSORYGAMMA_MAPPING_2]
+                )
+                .tint(ACCESSORYCOLOR_MAPPING[character.accessory_color as keyof typeof ACCESSORYCOLOR_MAPPING])
                 .toBuffer();
         }
 

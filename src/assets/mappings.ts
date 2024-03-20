@@ -85,7 +85,7 @@ export const SHIRTGAMMA_MAPPING_2 = {
     9: 1.6,
 };
 
-// TODO: finish background positioning
+// the position of background images can be moved with this mapping
 export const BACKGROUND_POSITION_MAPPING = {
     1: { left: 0, top: 0 },
     2: { left: 0, top: 0 },
@@ -101,4 +101,31 @@ export const BACKGROUND_POSITION_MAPPING = {
     12: { left: 0, top: 0 },
     13: { left: 0, top: 0 },
     14: { left: 0, top: 0 },
+};
+
+export const ACCESSORYCOLOR_MAPPING = {
+    2: { r: 255, g: 255, b: 0 },
+    3: { r: 40, g: 100, b: 240 },
+    4: { r: 25, g: 255, b: 20 },
+    5: { r: 255, g: 40, b: 240 },
+    6: { r: 255, g: 100, b: 90 },
+    7: { r: 255, g: 255, b: 255 },
+};
+
+export const ACCESSORYGAMMA_MAPPING_1 = {
+    2: 1,
+    3: 1.2,
+    4: 1.2,
+    5: 1.2,
+    6: 1.2,
+    7: 2.4,
+};
+
+export const ACCESSORYGAMMA_MAPPING_2 = {
+    2: 3,
+    3: 2.8,
+    4: 2.8,
+    5: 2.8,
+    6: 2.8,
+    7: 1.8,
 };
