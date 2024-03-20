@@ -1,7 +1,7 @@
 "use client";
 import { ITEMS_MALE, ITEMS_FEMALE } from "@/assets/items"
 import { MiiCharacterContext } from "@/providers/character-provider";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 type Props = {
     itemType: string;
@@ -9,7 +9,6 @@ type Props = {
 
 type MaleItem = keyof typeof ITEMS_MALE;
 type FemaleItem = keyof typeof ITEMS_FEMALE;
-
 const TOTAL_COLORS = {
     skin_color: 4,
     hair_color: 7,
@@ -17,9 +16,21 @@ const TOTAL_COLORS = {
     outfit_color: 9,
     accessory_color: 7,
 };
+const MAX_ITEMS_PER_PAGE = 20;
 
 export default function ItemSelection({ itemType }: Props) {
     const [character, setCharacter] = useContext(MiiCharacterContext);
+    const [currentItemTypePage, setCurrentItemTypePage] = useState({
+        hair: 1,
+        eyes: 1,
+        nose: 1,
+        mouth: 1,
+        eyebrows: 1,
+        glasses: 1,
+        hat: 1,
+        accessory: 1,
+    });
+    const itemsWithPagination = ["hair", "eyes", "nose", "mouth", "eyebrows", "glasses", "hat", "accessory"];
 
     const changeItem = (item: any) => {
         let newCharacter = { ...character };
@@ -84,6 +95,27 @@ export default function ItemSelection({ itemType }: Props) {
 
         setCharacter(newCharacter); // character component will pick up on the change and call the backend to generate the new image
     }
+
+    const prevItemPage = (itemType: string) => {
+        const currentPageOfItemType = currentItemTypePage[itemType as keyof typeof currentItemTypePage];
+        if (currentPageOfItemType === 1) return;
+        setCurrentItemTypePage({
+            ...currentItemTypePage,
+            [itemType]: currentItemTypePage[itemType as keyof typeof currentItemTypePage] - 1,
+        });
+    };
+
+    const nextItemPage = (itemType: string) => {
+        const currentPageOfItemType = currentItemTypePage[itemType as keyof typeof currentItemTypePage];
+        if (character.gender === "male") {
+            if (currentPageOfItemType * MAX_ITEMS_PER_PAGE >= ITEMS_MALE[itemType as MaleItem].length) return; // if last page has been reached
+
+            setCurrentItemTypePage({
+                ...currentItemTypePage,
+                [itemType]: currentPageOfItemType + 1,
+            });
+        }
+    };
 
     return (
         <div className="flex flex-col items-center sm:block">
@@ -168,17 +200,36 @@ export default function ItemSelection({ itemType }: Props) {
                 </div>
             ) : (
                 <>
+                    {itemsWithPagination.includes(itemType) && (
+                        <div className="flex gap-2 mb-3 items-center">
+                            <div className="arrow-button !w-8 !h-8" onClick={() => prevItemPage(itemType)}>
+                                <img src="/icons/left-arrow.svg" alt="" className="w-full h-full" />
+                            </div>
+                            {character.gender === "male" && (
+                                <div className="font-medium text-2xl">
+                                    {currentItemTypePage[itemType as keyof typeof currentItemTypePage]}/{Math.ceil(ITEMS_MALE[itemType as MaleItem].length / MAX_ITEMS_PER_PAGE)}
+                                </div>
+                            )}
+                            <div className="arrow-button !w-8 !h-8" onClick={() => nextItemPage(itemType)}>
+                                <img src="/icons/right-arrow.svg" alt="" className="w-full h-full" />
+                            </div>
+                        </div>
+                    )}
                     <div className="grid grid-cols-5 gap-2 flex-wrap">
                         {character.gender === "male" && (
                             <>
-                                {ITEMS_MALE[itemType as keyof typeof ITEMS_MALE].map((item: any, index: number) => (
-                                    <div key={index} onClick={() => changeItem(item)}
-                                    className={`item-button ${item.id === character[itemType] && "active"}`}>
-                                        <span className="absolute top-0 left-1">
-                                            {index + 1}
-                                        </span>
-                                        <img src={item.placeholder} alt=""
-                                            className={`${(itemType === "hat" || itemType === "accessory") && "h-full"}`} />
+                                {ITEMS_MALE[itemType as MaleItem].map((item: any, index: number) => (
+                                    <div key={index}>
+                                        {(index + 1 > MAX_ITEMS_PER_PAGE * (currentItemTypePage[itemType as keyof typeof currentItemTypePage] - 1) && index + 1 <= MAX_ITEMS_PER_PAGE * currentItemTypePage[itemType as keyof typeof currentItemTypePage]) && (
+                                            <div key={index} onClick={() => changeItem(item)}
+                                                className={`item-button ${item.id === character[itemType] && "active"}`}>
+                                                <span className="absolute top-0 left-1">
+                                                    {index + 1}
+                                                </span>
+                                                <img src={item.placeholder} alt=""
+                                                    className={`${(itemType === "hat" || itemType === "accessory") && "h-full"}`} />
+                                            </div>
+                                        )}
                                     </div>
                                 ))}
                             </>
@@ -186,13 +237,18 @@ export default function ItemSelection({ itemType }: Props) {
 
                         {character.gender === "female" && (
                             <>
-                                {ITEMS_FEMALE[itemType as keyof typeof ITEMS_FEMALE].map((item: any, index: number) => (
-                                    <div key={index} className="item-button" onClick={() => changeItem(item)}>
-                                        <span className="absolute top-0 left-1">
-                                            {index + 1}
-                                        </span>
-                                        <img src={item.placeholder} alt=""
-                                            className={`${(itemType === "hat" || itemType === "accessory") && "h-full"}`} />
+                                {ITEMS_FEMALE[itemType as FemaleItem].map((item: any, index: number) => (
+                                    <div key={index}>
+                                        {index < MAX_ITEMS_PER_PAGE && (
+                                            <div key={index} onClick={() => changeItem(item)}
+                                                className={`item-button ${item.id === character[itemType] && "active"}`}>
+                                                <span className="absolute top-0 left-1">
+                                                    {index + 1}
+                                                </span>
+                                                <img src={item.placeholder} alt=""
+                                                    className={`${(itemType === "hat" || itemType === "accessory") && "h-full"}`} />
+                                            </div>
+                                        )}
                                     </div>
                                 ))}
                             </>
