@@ -1,10 +1,93 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import AosProvider from "@/providers/aos-provider";
 import { MiiCharacterProvider } from "@/providers/character-provider";
+import localFont from 'next/font/local';
 
-const inter = Inter({ subsets: ["latin"] });
+const omnesPro = localFont({
+  src: [
+    {
+      path: "../assets/fonts/OmnesThin.ttf",
+      weight: "100",
+      style: "normal",
+    },
+    {
+      path: "../assets/fonts/OmnesThinItalic.ttf",
+      weight: "100",
+      style: "italic",
+    },
+    {
+      path: "../assets/fonts/OmnesExtraLight.ttf",
+      weight: "200",
+      style: "normal",
+    },
+    {
+      path: "../assets/fonts/OmnesExtraLightItalic.ttf",
+      weight: "200",
+      style: "italic",
+    },
+    {
+      path: "../assets/fonts/OmnesLight.ttf",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../assets/fonts/OmnesLightItalic.ttf",
+      weight: "300",
+      style: "italic",
+    },
+    {
+      path: "../assets/fonts/OmnesRegular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../assets/fonts/OmnesItalic.ttf",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "../assets/fonts/OmnesMedium.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../assets/fonts/OmnesMediumItalic.ttf",
+      weight: "500",
+      style: "italic",
+    },
+    {
+      path: "../assets/fonts/OmnesSemiBold.ttf",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../assets/fonts/OmnesSemiBoldItalic.ttf",
+      weight: "600",
+      style: "italic",
+    },
+    {
+      path: "../assets/fonts/OmnesBold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../assets/fonts/OmnesBoldItalic.ttf",
+      weight: "700",
+      style: "italic",
+    },
+    {
+      path: "../assets/fonts/OmnesBlack.ttf",
+      weight: "800",
+      style: "normal",
+    },
+    {
+      path: "../assets/fonts/OmnesBlack.ttf",
+      weight: "800",
+      style: "italic",
+    },
+  ],
+});
 
 export const metadata: Metadata = {
   title: "Mii on Solana",
@@ -22,7 +105,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <AosProvider>
         <MiiCharacterProvider>
-          <body className={inter.className}>
+          <body className={omnesPro.className}>
             {children}
           </body>
         </MiiCharacterProvider>
