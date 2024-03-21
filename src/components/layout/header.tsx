@@ -28,10 +28,15 @@ export default function Header({ hideLaunchButton = false }: Props) {
                     <div className={`${active ? styles.active : ""} ${styles.menu} fixed w-screen h-screen inset-0 bg-black`}>
                         <nav className="flex flex-col gap-8 text-xl text-white">
                             <Link href={"https://jup.ag/swap/SOL-6yaVaoVREVoTt5euoSFpsxLEia1JnzM6fqZj6UWFok1F"}
-                                target="_blank">
+                                target="_blank" className="hover:text-slate-500 font-semibold">
                                 Buy Token
                             </Link>
-                            <Link href={"/about"}>About</Link>
+                            <Link href={"/lore"} className="hover:text-slate-500 font-semibold">
+                                Lore
+                            </Link>
+                            <Link href={"/about"} className="hover:text-slate-500 font-semibold">
+                                About
+                            </Link>
                         </nav>
                     </div>
                 </div>
@@ -46,6 +51,9 @@ export default function Header({ hideLaunchButton = false }: Props) {
                             <Link href={"https://jup.ag/swap/SOL-6yaVaoVREVoTt5euoSFpsxLEia1JnzM6fqZj6UWFok1F"}
                                 className="hover:text-slate-500 font-semibold" target="_blank">
                                 Buy Token
+                            </Link>
+                            <Link href={"/lore"} className="hover:text-slate-500 font-semibold">
+                                Lore
                             </Link>
                             <Link href={"/about"} className="hover:text-slate-500 font-semibold">
                                 About
