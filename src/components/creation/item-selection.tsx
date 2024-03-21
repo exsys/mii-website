@@ -35,9 +35,9 @@ export default function ItemSelection({ itemType }: Props) {
     const changeItem = (item: any) => {
         let newCharacter = { ...character };
         newCharacter[item.itemType] = item.id;
+        setCharacter(newCharacter);
         const audio = document.getElementById("pick-sound") as HTMLAudioElement;
         audio.play();
-        setCharacter(newCharacter);
     };
 
     const nextItem = async (item: any) => {
@@ -47,9 +47,9 @@ export default function ItemSelection({ itemType }: Props) {
             if (newCharacter[item] > TOTAL_COLORS[item as keyof typeof TOTAL_COLORS]) {
                 newCharacter[item] = 1;
             }
+            setCharacter(newCharacter);
             const colorAudio = document.getElementById("change-sound") as HTMLAudioElement;
             colorAudio.play();
-            setCharacter(newCharacter);
             return;
         }
 
@@ -68,9 +68,9 @@ export default function ItemSelection({ itemType }: Props) {
             }
         }
 
+        setCharacter(newCharacter); // character component will pick up on the change and call the backend to generate the new image
         const audio = document.getElementById("pick-sound") as HTMLAudioElement;
         audio.play();
-        setCharacter(newCharacter); // character component will pick up on the change and call the backend to generate the new image
     }
 
     const prevItem = (item: any) => {
@@ -80,9 +80,9 @@ export default function ItemSelection({ itemType }: Props) {
             if (newCharacter[item] < 1) {
                 newCharacter[item] = TOTAL_COLORS[item as keyof typeof TOTAL_COLORS];
             }
+            setCharacter(newCharacter);
             const colorAudio = document.getElementById("change-sound") as HTMLAudioElement;
             colorAudio.play();
-            setCharacter(newCharacter);
             return;
         }
 
@@ -101,9 +101,9 @@ export default function ItemSelection({ itemType }: Props) {
             }
         }
 
+        setCharacter(newCharacter); // character component will pick up on the change and call the backend to generate the new image
         const audio = document.getElementById("pick-sound") as HTMLAudioElement;
         audio.play();
-        setCharacter(newCharacter); // character component will pick up on the change and call the backend to generate the new image
     }
 
     const prevItemPage = (itemType: string) => {
