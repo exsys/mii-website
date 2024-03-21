@@ -30,6 +30,7 @@ export default function CharacterCreation({ setCurrentView }: Props) {
     const [saveString, setSaveString] = useState<string>("");
     const [openSaveStringDialog, setOpenSaveStringDialog] = useState(false);
     const [loading, setLoading] = useState<boolean>(false);
+    const [lastChangeWasItemOrColor, setLastChangeWasItemOrColor] = useState<string | null>(null);
 
     useEffect(() => {
         const downloadElement = document.getElementById("download-link");
@@ -118,7 +119,7 @@ export default function CharacterCreation({ setCurrentView }: Props) {
 
                             <div className="flex flex-col sm:flex-row justify-between w-full gap-5">
                                 <div className="relative">
-                                    <Character />
+                                    <Character lastChangeWasItemOrColor={lastChangeWasItemOrColor} />
                                     <div className="absolute bottom-0 left-1/2 -translate-x-1/2 sm:left-[36px]
                                     bg-black/40 p-2 border-2 border-black/30 rounded-xl min-w-[180px] text-center
                                     hover:scale-95 hover:bg-black/50 sm:translate-x-0"
@@ -128,7 +129,7 @@ export default function CharacterCreation({ setCurrentView }: Props) {
                                         </h3>
                                     </div>
                                 </div>
-                                <ItemSelection itemType={selectedItemType} />
+                                <ItemSelection itemType={selectedItemType} setLastChangeWasItemOrColor={setLastChangeWasItemOrColor} />
                             </div>
                         </div>
                     )}

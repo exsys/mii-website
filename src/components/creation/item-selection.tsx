@@ -5,6 +5,7 @@ import { useContext, useState } from "react";
 
 type Props = {
     itemType: string;
+    setLastChangeWasItemOrColor: (item: string) => void;
 }
 
 type MaleItem = keyof typeof ITEMS_MALE;
@@ -18,7 +19,7 @@ const TOTAL_COLORS = {
 };
 const MAX_ITEMS_PER_PAGE = 20;
 
-export default function ItemSelection({ itemType }: Props) {
+export default function ItemSelection({ itemType, setLastChangeWasItemOrColor }: Props) {
     const [character, setCharacter] = useContext(MiiCharacterContext);
     const [currentItemTypePage, setCurrentItemTypePage] = useState({
         hair: 1,
@@ -35,12 +36,11 @@ export default function ItemSelection({ itemType }: Props) {
     const changeItem = (item: any) => {
         let newCharacter = { ...character };
         newCharacter[item.itemType] = item.id;
+        setLastChangeWasItemOrColor("item");
         setCharacter(newCharacter);
-        const audio = document.getElementById("pick-sound") as HTMLAudioElement;
-        audio.play();
     };
 
-    const nextItem = async (item: any) => {
+    const nextItem = (item: any) => {
         if (item.includes("color")) {
             let newCharacter = { ...character };
             newCharacter[item] += 1;
@@ -48,8 +48,7 @@ export default function ItemSelection({ itemType }: Props) {
                 newCharacter[item] = 1;
             }
             setCharacter(newCharacter);
-            const colorAudio = document.getElementById("change-sound") as HTMLAudioElement;
-            colorAudio.play();
+            setLastChangeWasItemOrColor("color");
             return;
         }
 
@@ -68,9 +67,8 @@ export default function ItemSelection({ itemType }: Props) {
             }
         }
 
+        setLastChangeWasItemOrColor("item");
         setCharacter(newCharacter); // character component will pick up on the change and call the backend to generate the new image
-        const audio = document.getElementById("pick-sound") as HTMLAudioElement;
-        audio.play();
     }
 
     const prevItem = (item: any) => {
@@ -80,9 +78,8 @@ export default function ItemSelection({ itemType }: Props) {
             if (newCharacter[item] < 1) {
                 newCharacter[item] = TOTAL_COLORS[item as keyof typeof TOTAL_COLORS];
             }
+            setLastChangeWasItemOrColor("color");
             setCharacter(newCharacter);
-            const colorAudio = document.getElementById("change-sound") as HTMLAudioElement;
-            colorAudio.play();
             return;
         }
 
@@ -101,9 +98,8 @@ export default function ItemSelection({ itemType }: Props) {
             }
         }
 
+        setLastChangeWasItemOrColor("item");
         setCharacter(newCharacter); // character component will pick up on the change and call the backend to generate the new image
-        const audio = document.getElementById("pick-sound") as HTMLAudioElement;
-        audio.play();
     }
 
     const prevItemPage = (itemType: string) => {
@@ -133,9 +129,7 @@ export default function ItemSelection({ itemType }: Props) {
 
     return (
         <div className="flex flex-col items-center sm:block">
-            <audio id="pick-sound" src="/sounds/item-pick.wav" />
             <audio id="click-sound" src="/sounds/click.wav" />
-            <audio id="change-sound" src="/sounds/change-color.wav" />
             {itemType === "face" ? (
                 <div className="border-4 border-gray-400 bg-black/20">
                     <div className="border-b-2 border-gray-400 py-1.5 px-8">
