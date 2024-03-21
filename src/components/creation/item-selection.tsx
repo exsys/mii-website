@@ -234,7 +234,8 @@ export default function ItemSelection({ itemType, setLastChangeWasItemOrColor }:
                                         {(index + 1 > MAX_ITEMS_PER_PAGE * (currentItemTypePage[itemType as keyof typeof currentItemTypePage] - 1) && index + 1 <= MAX_ITEMS_PER_PAGE * currentItemTypePage[itemType as keyof typeof currentItemTypePage]) && (
                                             <div key={index} onClick={() => changeItem(item)}
                                                 className={`item-button ${item.id === character[itemType] && "active"}`}>
-                                                <span className="absolute top-0 left-1">
+                                                <span className="absolute top-0 left-0 bg-[#CCD8FF] px-1 rounded-tl-md text-sm
+                                                border border-black">
                                                     {index + 1}
                                                 </span>
                                                 <img src={item.placeholder} alt=""
