@@ -35,6 +35,8 @@ export default function ItemSelection({ itemType }: Props) {
     const changeItem = (item: any) => {
         let newCharacter = { ...character };
         newCharacter[item.itemType] = item.id;
+        const audio = document.getElementById("pick-sound") as HTMLAudioElement;
+        audio.play();
         setCharacter(newCharacter);
     };
 
@@ -45,6 +47,8 @@ export default function ItemSelection({ itemType }: Props) {
             if (newCharacter[item] > TOTAL_COLORS[item as keyof typeof TOTAL_COLORS]) {
                 newCharacter[item] = 1;
             }
+            const colorAudio = document.getElementById("change-sound") as HTMLAudioElement;
+            colorAudio.play();
             setCharacter(newCharacter);
             return;
         }
@@ -64,6 +68,8 @@ export default function ItemSelection({ itemType }: Props) {
             }
         }
 
+        const audio = document.getElementById("pick-sound") as HTMLAudioElement;
+        audio.play();
         setCharacter(newCharacter); // character component will pick up on the change and call the backend to generate the new image
     }
 
@@ -74,6 +80,8 @@ export default function ItemSelection({ itemType }: Props) {
             if (newCharacter[item] < 1) {
                 newCharacter[item] = TOTAL_COLORS[item as keyof typeof TOTAL_COLORS];
             }
+            const colorAudio = document.getElementById("change-sound") as HTMLAudioElement;
+            colorAudio.play();
             setCharacter(newCharacter);
             return;
         }
@@ -93,11 +101,15 @@ export default function ItemSelection({ itemType }: Props) {
             }
         }
 
+        const audio = document.getElementById("pick-sound") as HTMLAudioElement;
+        audio.play();
         setCharacter(newCharacter); // character component will pick up on the change and call the backend to generate the new image
     }
 
     const prevItemPage = (itemType: string) => {
         const currentPageOfItemType = currentItemTypePage[itemType as keyof typeof currentItemTypePage];
+        const clickAudio = document.getElementById("click-sound") as HTMLAudioElement;
+        clickAudio.play();
         if (currentPageOfItemType === 1) return;
         setCurrentItemTypePage({
             ...currentItemTypePage,
@@ -107,6 +119,8 @@ export default function ItemSelection({ itemType }: Props) {
 
     const nextItemPage = (itemType: string) => {
         const currentPageOfItemType = currentItemTypePage[itemType as keyof typeof currentItemTypePage];
+        const clickAudio = document.getElementById("click-sound") as HTMLAudioElement;
+        clickAudio.play();
         if (character.gender === "male") {
             if (currentPageOfItemType * MAX_ITEMS_PER_PAGE >= ITEMS_MALE[itemType as MaleItem].length) return; // if last page has been reached
 
@@ -119,6 +133,9 @@ export default function ItemSelection({ itemType }: Props) {
 
     return (
         <div className="flex flex-col items-center sm:block">
+            <audio id="pick-sound" src="/sounds/item-pick.wav" />
+            <audio id="click-sound" src="/sounds/click.wav" />
+            <audio id="change-sound" src="/sounds/change-color.wav" />
             {itemType === "face" ? (
                 <div className="border-4 border-gray-400 bg-black/20">
                     <div className="border-b-2 border-gray-400 py-1.5 px-8">

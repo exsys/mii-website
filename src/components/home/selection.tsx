@@ -1,5 +1,5 @@
 "use client";
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { Transition, Dialog } from "@headlessui/react";
 import { XMarkIcon, InformationCircleIcon } from "@heroicons/react/24/outline";
 
@@ -22,17 +22,27 @@ export default function Selection({ startCreator }: Props) {
 
     return (
         <div className={`w-full h-full`}>
+            <audio id="mii-song" src="/sounds/mii-music.mp3" loop autoPlay />
+            <audio id="click-sound" src="/sounds/click.wav" />
             {currentSelection === 0 && (
                 <div>
                     {/* non-mobile version */}
                     <div className="hidden sm:flex sm:gap-10 lg:gap-20 bottom-16 left-1/2 -translate-x-1/2 absolute">
-                        <div onClick={() => setCurrentSelection(1)} data-aos="fade-right" data-aos-delay="200">
+                        <div onClick={() => {
+                            setCurrentSelection(1);
+                            const audio = document.getElementById("click-sound") as HTMLAudioElement;
+                            audio.play();
+                        }} data-aos="fade-right" data-aos-delay="200">
                             <div className="wii-button">
                                 New Mii
                             </div>
                         </div>
                         <div data-aos="fade-left" data-aos-delay="200">
-                            <div className="wii-button" onClick={() => setOpenLoadStringDialog(true)}>
+                            <div className="wii-button" onClick={() => {
+                                setOpenLoadStringDialog(true);
+                                const audio = document.getElementById("click-sound") as HTMLAudioElement;
+                                audio.play();
+                            }}>
                                 Load Mii
                             </div>
                         </div>
@@ -51,13 +61,21 @@ export default function Selection({ startCreator }: Props) {
                         </h1>
                     </div>
                     <div className="absolute flex flex-col bottom-10 gap-4 left-1/2 -translate-x-1/2 sm:hidden">
-                        <div onClick={() => setCurrentSelection(1)}>
+                        <div onClick={() => {
+                            setCurrentSelection(1);
+                            const audio = document.getElementById("click-sound") as HTMLAudioElement;
+                            audio.play();
+                        }}>
                             <div className="wii-button">
                                 New Mii
                             </div>
                         </div>
                         <div>
-                            <div className="wii-button" onClick={() => setOpenLoadStringDialog(true)}>
+                            <div className="wii-button" onClick={() => {
+                                setOpenLoadStringDialog(true);
+                                const audio = document.getElementById("click-sound") as HTMLAudioElement;
+                                audio.play();
+                            }}>
                                 Load Mii
                             </div>
                         </div>

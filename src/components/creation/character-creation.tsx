@@ -98,6 +98,7 @@ export default function CharacterCreation({ setCurrentView }: Props) {
     return (
         <div className={`h-fit sm:h-full flex justify-center items-center gap-10`}>
             <Header hideLaunchButton />
+            <audio id="mii-background-music" src="/sounds/creator-music.mp3" loop autoPlay />
             <div className="h-full w-full py-32">
                 <div className="h-full flex justify-center items-center flex-col gap-10 px-2">
                     {/** Mii Creation / Item Selection */}
