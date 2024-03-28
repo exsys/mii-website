@@ -182,7 +182,30 @@ export default function CharacterCreation({ setCurrentView }: Props) {
                                 </div>
                             </div>
 
-                            <div className="flex flex-col sm:flex-row gap-10 mt-10 justify-center items-center" data-aos="fade-up">
+                            {/* non-mobile version */}
+                            <div className="hidden sm:flex flex-col sm:flex-row gap-10 mt-10 justify-center items-center" data-aos="fade-up">
+                                <button className="wii-button flex gap-3 w-[280px]" onClick={() => downloadImage()} disabled={loading}>
+                                    {loading ? (
+                                        <Blocks height="30" width="30" color="#4fa94d" ariaLabel="blocks-loading" wrapperStyle={{}}
+                                            visible={loading} wrapperClass="blocks-wrapper" />
+                                    ) : (
+                                        <ArrowDownTrayIcon className="w-6 h-6" />
+                                    )}
+                                    <span>
+                                        Download Image
+                                    </span>
+                                </button>
+                                <button className="wii-button flex gap-3 w-[280px]" onClick={() => saveMiiString()}>
+                                    <FolderArrowDownIcon className="w-6 h-6" />
+                                    <span>
+                                        Save Mii
+                                    </span>
+                                </button>
+                                <a download={"miionsolana.png"} href={downloadLink} className="hidden" id="download-link"></a>
+                            </div>
+
+                            {/* mobile version */}
+                            <div className="sm:hidden flex flex-col sm:flex-row gap-10 mt-10 justify-center items-center">
                                 <button className="wii-button flex gap-3 w-[280px]" onClick={() => downloadImage()} disabled={loading}>
                                     {loading ? (
                                         <Blocks height="30" width="30" color="#4fa94d" ariaLabel="blocks-loading" wrapperStyle={{}}
