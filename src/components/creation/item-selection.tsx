@@ -125,6 +125,15 @@ export default function ItemSelection({ itemType, setLastChangeWasItemOrColor }:
                 [itemType]: currentPageOfItemType + 1,
             });
         }
+
+        if (character.gender === "female") {
+            if (currentPageOfItemType * MAX_ITEMS_PER_PAGE >= ITEMS_FEMALE[itemType as FemaleItem].length) return; // if last page has been reached
+
+            setCurrentItemTypePage({
+                ...currentItemTypePage,
+                [itemType]: currentPageOfItemType + 1,
+            });
+        }
     };
 
     return (
@@ -221,6 +230,11 @@ export default function ItemSelection({ itemType, setLastChangeWasItemOrColor }:
                                     {currentItemTypePage[itemType as keyof typeof currentItemTypePage]}/{Math.ceil(ITEMS_MALE[itemType as MaleItem].length / MAX_ITEMS_PER_PAGE)}
                                 </div>
                             )}
+                            {character.gender === "female" && (
+                                <div className="font-medium text-2xl">
+                                    {currentItemTypePage[itemType as keyof typeof currentItemTypePage]}/{Math.ceil(ITEMS_FEMALE[itemType as FemaleItem].length / MAX_ITEMS_PER_PAGE)}
+                                </div>
+                            )}
                             <div className="arrow-button !w-8 !h-8" onClick={() => nextItemPage(itemType)}>
                                 <img src="/icons/right-arrow.svg" alt="" className="w-full h-full" />
                             </div>
@@ -251,10 +265,11 @@ export default function ItemSelection({ itemType, setLastChangeWasItemOrColor }:
                             <>
                                 {ITEMS_FEMALE[itemType as FemaleItem].map((item: any, index: number) => (
                                     <div key={index}>
-                                        {index < MAX_ITEMS_PER_PAGE && (
+                                        {(index + 1 > MAX_ITEMS_PER_PAGE * (currentItemTypePage[itemType as keyof typeof currentItemTypePage] - 1) && index + 1 <= MAX_ITEMS_PER_PAGE * currentItemTypePage[itemType as keyof typeof currentItemTypePage]) && (
                                             <div key={index} onClick={() => changeItem(item)}
                                                 className={`item-button ${item.id === character[itemType] && "active"}`}>
-                                                <span className="absolute top-0 left-1">
+                                                <span className="absolute top-0 left-0 bg-[#CCD8FF] px-1 rounded-tl-md text-sm
+                                                border border-black">
                                                     {index + 1}
                                                 </span>
                                                 <img src={item.placeholder} alt=""
